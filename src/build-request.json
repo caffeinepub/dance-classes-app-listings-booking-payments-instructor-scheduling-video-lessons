@@ -1,37 +1,58 @@
 {
   "kind": "build_request",
-  "title": "Remove photo from the Biodata page",
+  "title": "Add instructor photo to the Biodata page",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-56",
-      "text": "Remove any instructor photo/portrait rendering from the public-facing Biodata page route (/biodata) so that the page displays only the existing English heading and the two text sections (Professional Summary and Core Competencies), without showing any images.",
+      "text": "Create an optimized, square portrait image asset from the uploaded file IMG-20220513-WA0015.jpg and add it as a static file under frontend/public/assets/generated.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "recent-messages"
         ],
         "quotes": [
-          "Remove photo"
+          "Add photo to biodata page"
         ]
       },
       "acceptanceCriteria": [
-        "Visiting /biodata shows the \"Biodata\" heading and the two sections (\"Professional Summary\" and \"Core Competencies\") without rendering any <img> elements or portrait/avatar images on that page.",
-        "The footer contact section (including the existing circular portrait image and its alt text) is unchanged and still appears site-wide as before.",
-        "No broken image links or empty image placeholders appear on /biodata."
+        "A new image file exists at frontend/public/assets/generated/biodata-portrait.dim_512x512.png.",
+        "The image is a square 512x512 portrait crop with the subject centered and minimal background distractions.",
+        "The image is visually suitable for use as a portrait (clean edges, not stretched, not pixelated)."
+      ]
+    },
+    {
+      "id": "REQ-57",
+      "text": "Update the /biodata page (frontend/src/pages/biodata/BiodataPage.tsx) to display the new portrait image near the top of the page while keeping the existing Biodata heading and the two existing sections (Professional Summary, Core Competencies) intact.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "recent-messages"
+        ],
+        "quotes": [
+          "Add photo to biodata page"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The /biodata page renders the portrait image from /assets/generated/biodata-portrait.dim_512x512.png.",
+        "The image includes English alt text (e.g., \"Instructor portrait\").",
+        "The existing headings and body text currently shown on /biodata remain present and unchanged.",
+        "The layout is responsive (image and text look good on mobile and desktop) and uses existing Tailwind styling conventions in the file."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under frontend/src/components/ui (read-only).",
-    "Do not change backend canister interfaces or state for this change."
+    "Do not add any backend changes; this is a frontend-only update using a static asset.",
+    "Do not modify files under frontend/src/components/ui or any other frontend immutablePaths."
   ],
   "nonGoals": [
-    "Do not remove or alter the footer contact photo in the site footer.",
-    "Do not change the Biodata text content, headings, or site navigation links beyond what is required to remove the photo."
+    "Creating a new biodata route or changing navigation (the /biodata page already exists).",
+    "Adding an image upload feature or storing the photo in the backend."
   ],
   "imageRequirements": {
-    "required": [],
+    "required": [
+      "Square portrait photo crop with subject centered, reduced background distractions (biodata-portrait.dim_512x512.png)"
+    ],
     "edits": []
   }
 }

@@ -1,4 +1,45 @@
 {
   "kind": "feature_evidence_report",
-  "features": []
+  "features": [
+    {
+      "featureId": "feature-create-an-optimized-square-portrait-image-asset-from-the-uploaded-file-img-20220513-wa0015-jpg-and-add-it-as-a-static-file-under-frontend-public-assets-generated",
+      "featureTitle": "Create an optimized, square portrait image asset from the uploaded file IMG-20220513-WA0015.jpg and add it as a static file under frontend/public/assets/generated.",
+      "files": [],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-56"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-biodata-page-frontend-src-pages-biodata-biodatapage-tsx-to-display-the-new-portrait-image-near-the-top-of-the-page-while-keeping-the-existing-biodata-heading-and-the-two-existing-sections-professional-summary-core-competencies-intact",
+      "featureTitle": "Update the /biodata page (frontend/src/pages/biodata/BiodataPage.tsx) to display the new portrait image near the top of the page while keeping the existing Biodata heading and the two existing sections (Professional Summary, Core Competencies) intact.",
+      "files": [
+        "frontend/src/pages/biodata/BiodataPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-57"
+      ],
+      "confidence": "high"
+    }
+  ]
 }

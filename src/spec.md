@@ -1,11 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Remove any instructor photo/portrait rendering from the public-facing Biodata page (/biodata) while keeping the rest of the site unchanged.
+**Goal:** Add an instructor portrait photo to the existing Biodata page.
 
 **Planned changes:**
-- Update the /biodata page to not render any instructor portrait/avatar or other images within the page content.
-- Ensure /biodata displays only the existing "Biodata" heading plus the two text sections: "Professional Summary" and "Core Competencies".
-- Verify the site-wide footer contact section (including its existing circular portrait image and alt text) remains unchanged.
+- Create an optimized, square 512x512 portrait image from the uploaded `IMG-20220513-WA0015.jpg` and save it as a static asset under `frontend/public/assets/generated/`.
+- Update `frontend/src/pages/biodata/BiodataPage.tsx` to display the portrait near the top of the page with appropriate alt text, while keeping the existing Biodata heading and the two sections (Professional Summary, Core Competencies) unchanged and ensuring responsive layout using existing Tailwind conventions.
 
-**User-visible outcome:** Visiting /biodata shows the Biodata heading and the two text sections without any images, broken image links, or empty placeholders; the footer contact portrait still appears as before.
+**User-visible outcome:** The /biodata page shows a centered, responsive instructor portrait image near the top, without changing the existing biodata content.

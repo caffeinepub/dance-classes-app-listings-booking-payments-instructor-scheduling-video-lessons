@@ -1,15 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 45,
+  "projectStateVersion": 47,
   "summary": "Dance classes app/website including class listings, booking and payments, instructor schedule management, video lessons, marketing website content, plus an online registration system.",
   "architectural_notes": [
     "Include public-facing website/landing pages in addition to the authenticated app experience.",
     "Public contact page should support richer instructor profile content (photo + short intro/bio) in addition to basic contact details like phone number.",
     "Public contact information should include an email address (jayakumarsujatha@gmail.com) in addition to phone/name/photo/bio.",
-    "Public-facing site should include a Biodata/About section to present the instructor’s professional summary and core competencies."
+    "Public-facing site should include a Biodata/About section to present the instructor’s professional summary and core competencies.",
+    "Biodata page (/biodata) should include an instructor photo/portrait alongside the existing heading and text sections."
   ],
   "known_issues": [],
-  "isFixRequest": true,
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Square portrait photo crop with subject centered, reduced background distractions (biodata-portrait.dim_512x512.png)",
   "existing_features": [
     {
       "id": "feature-implement-internet-identity-sign-in-and-a-user-profile-record-in-the-backend-including-role-based-access-control-for-at-least-student-instructor-and-admin",
@@ -418,6 +420,22 @@
         "REQ-55"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-create-an-optimized-square-portrait-image-asset-from-the-uploaded-file-img-20220513-wa0015-jpg-and-add-it-as-a-static-file-under-frontend-public-assets-generated",
+      "title": "Create an optimized, square portrait image asset from the uploaded file IMG-20220513-WA0015.jpg and add it as a static file under frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-56"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-biodata-page-frontend-src-pages-biodata-biodatapage-tsx-to-display-the-new-portrait-image-near-the-top-of-the-page-while-keeping-the-existing-biodata-heading-and-the-two-existing-sections-professional-summary-core-competencies-intact",
+      "title": "Update the /biodata page (frontend/src/pages/biodata/BiodataPage.tsx) to display the new portrait image near the top of the page while keeping the existing Biodata heading and the two existing sections (Professional Summary, Core Competencies) intact.",
+      "reqIds": [
+        "REQ-57"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -582,17 +600,9 @@
       "status": "pending"
     },
     {
-      "id": "AR-29",
-      "summary": "Remove the photo from the Biodata section/page.",
+      "id": "AR-31",
+      "summary": "Add an instructor photo/portrait to the public-facing Biodata page (/biodata).",
       "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-30",
-      "summary": "Remove any instructor photo/portrait rendering from the public-facing Biodata page route (/biodata) so that the page displays only the existing English heading and the two text sections (Professional Summary and Core Competencies), without showing any images.",
-      "reqIds": [
-        "REQ-56"
-      ],
       "status": "pending"
     }
   ],

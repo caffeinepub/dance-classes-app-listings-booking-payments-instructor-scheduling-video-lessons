@@ -7,6 +7,17 @@ export default function BiodataPage() {
             Biodata
           </h1>
 
+          {/* Portrait Section */}
+          <div className="flex justify-center mb-8">
+            <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-lg border-4 border-[oklch(0.65_0.19_35)]">
+              <img
+                src="/assets/generated/biodata-portrait.dim_512x512.png"
+                alt="Instructor portrait"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+
           <div className="space-y-8">
             {/* Professional Summary Section */}
             <section className="bg-card rounded-lg p-6 md:p-8 shadow-sm border border-border/50">

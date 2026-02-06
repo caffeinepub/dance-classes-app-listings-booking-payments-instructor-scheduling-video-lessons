@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Dance classes app including class listings, booking and payments, instructor schedule management, and video lessons.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Dance studio brand logo mark, clean modern vector-style on transparent background (dance-logo.dim_512x512.png)\n- Warm energetic hero illustration showing silhouettes of dancers in motion, minimal background, wide banner composition (dance-hero.dim_1600x600.png)",
+  "existing_features": [
+    {
+      "id": "feature-implement-internet-identity-sign-in-and-a-user-profile-record-in-the-backend-including-role-based-access-control-for-at-least-student-instructor-and-admin",
+      "title": "Implement Internet Identity sign-in and a user profile record in the backend, including role-based access control for at least: student, instructor, and admin.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-dance-class-catalog-feature-persist-classes-in-the-backend-and-provide-a-frontend-to-browse-search-and-view-class-details",
+      "title": "Create a dance class catalog feature: persist classes in the backend and provide a frontend to browse, search, and view class details.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-instructor-schedule-management-instructors-admins-can-create-and-manage-scheduled-class-sessions-date-time-capacity-location-online-link-associated-with-a-class",
+      "title": "Implement instructor schedule management: instructors/admins can create and manage scheduled class sessions (date/time, capacity, location/online link) associated with a class.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-class-booking-flow-students-can-book-a-specific-scheduled-session-with-booking-records-persisted-in-the-backend-and-visible-to-students-and-instructors",
+      "title": "Implement class booking flow: students can book a specific scheduled session, with booking records persisted in the backend and visible to students and instructors.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-payments-for-class-bookings-using-stripe-checkout-initiate-payment-for-a-pending-booking-and-update-booking-status-upon-successful-payment-confirmation",
+      "title": "Add payments for class bookings using Stripe Checkout: initiate payment for a pending booking and update booking status upon successful payment confirmation.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-an-on-demand-video-lessons-library-instructors-admins-can-create-manage-lesson-entries-and-students-can-browse-and-play-lessons-from-the-app",
+      "title": "Provide an on-demand video lessons library: instructors/admins can create/manage lesson entries and students can browse and play lessons from the app.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-coherent-visual-theme-across-the-app-colors-typography-spacing-components-suitable-for-a-dance-brand-avoiding-blue-purple-as-primary-colors",
+      "title": "Apply a coherent visual theme across the app (colors, typography, spacing, components) suitable for a dance brand, avoiding blue/purple as primary colors.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-image-assets-to-the-frontend-and-use-them-in-the-ui-served-from-frontend-public-assets-generated",
+      "title": "Add generated static image assets to the frontend and use them in the UI (served from frontend/public/assets/generated).",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "List available dance classes (browse/search class catalog)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Allow users to book dance classes",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Accept payments for class bookings",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Instructor schedule management (create/manage classes and schedules)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Provide video lessons (on-demand lesson library)",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Dance Classes App: Listings, Booking + Payments, Instructor Scheduling, Video Lessons",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

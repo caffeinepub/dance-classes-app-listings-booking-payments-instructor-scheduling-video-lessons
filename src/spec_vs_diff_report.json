@@ -1,0 +1,158 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-06T02:23:40.558Z",
+  "summary": "Diff adds a Motoko backend actor with data types for users/classes/sessions/bookings/video lessons and a React frontend with routing, Internet Identity hooks, role gating components, booking and Stripe checkout UI, and branding references. However, several BuildRequest requirements cannot be confirmed from the truncated backend, and some frontend logic appears to contradict the requested instructor/admin RBAC. Also, key catalog/session/lesson fields and CRUD/filtering requirements are not evidenced in the shown changes.",
+  "missing_requirements": [
+    {
+      "id": "REQ-1",
+      "requirement": "Role-based access control must support at least student, instructor, and admin, where instructors/admins can access instructor management screens and methods, plus a bootstrap mechanism for first admin and admin grant/revoke of roles.",
+      "reason": "Frontend RoleGate hard-codes non-admin access to protected routes as false and explicitly notes there is no separate instructor role in the enum, which conflicts with required instructor access. The diff also shows an initialization via a secret token parameter rather than an evidenced 'first registered user becomes admin' bootstrap and admin grant/revoke flow (backend methods for granting/revoking/bootstrapping are not shown in the provided backend snippet).",
+      "evidence": [
+        "frontend/src/components/auth/RoleGate.tsx",
+        "frontend/src/hooks/useActor.ts",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Backend supports CRUD for class definitions including: title, description, dance style, level, duration, price, cover image URL (optional).",
+      "reason": "The DanceClass type shown in the backend lacks a cover image URL field, and only a create method and list method are evidenced; update/delete/get-by-id are not shown in the provided snippet.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Frontend includes catalog page with search and basic filters (style, level) and a class detail view; anonymous users can browse catalog.",
+      "reason": "Routes reference CatalogPage and ClassDetailPage, but no evidence is provided in the diff summary of implemented search and filter UI/logic or anonymous browsing behavior on the catalog itself.",
+      "evidence": [
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Session capacity must track remaining spots based on bookings.",
+      "reason": "Session type includes a capacity field, but no evidence is shown of remaining-spots computation or capacity decrement logic tied to confirmed bookings in the provided backend snippet.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Backend supports updating/deleting sessions and listing sessions for a class and/or instructor; frontend instructor dashboard manages classes and sessions; students can view upcoming sessions on class detail.",
+      "reason": "Frontend includes a session creation dialog and an instructor dashboard route, but the diff summary does not show update/delete session APIs or instructor-based session listing in the backend snippet, nor does it show the class detail page rendering upcoming sessions.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/App.tsx",
+        "frontend/src/components/sessions/SessionEditorDialog.tsx"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Booking must prevent double-booking and prevent booking when capacity is full; bookings must have lifecycle pending_payment/confirmed/cancelled; instructors can see a roster for their sessions.",
+      "reason": "BookingButton and hooks call actor.bookSession, and backend defines a status variant, but the diff summary does not evidence double-booking prevention, capacity checks, cancellation flow, or a real roster listing implementation (roster panel is a placeholder).",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/components/bookings/BookingButton.tsx",
+        "frontend/src/components/instructor/SessionRosterPanel.tsx",
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "After successful Stripe payment, booking becomes confirmed and session capacity updates; secret keys must not be exposed; payment incomplete stays pending_payment or cancellable.",
+      "reason": "Frontend can create a Stripe Checkout session and redirect, but the diff summary does not show webhook/confirmation handling or backend logic updating booking status/capacity upon success. Secret-key handling is not evidenced from the shown files (backend imports Stripe, but configuration/secrets handling and confirmation flow are not shown).",
+      "evidence": [
+        "frontend/src/hooks/useStripeCheckout.ts",
+        "frontend/src/components/payments/PayForBookingButton.tsx",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Video lesson metadata must include at minimum title, description, dance style/level tags, video URL, optional thumbnail URL; frontend includes list + filtering/search and lesson detail with embedded player; instructors/admins can create/edit/delete lessons.",
+      "reason": "Backend VideoLesson type shown lacks description, level/tags, and thumbnail URL fields; only a create/upload hook is shown and no edit/delete is evidenced. Filtering/search and embedded player implementation are not evidenced in the provided diff summary (only routes and an editor dialog are shown).",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/App.tsx",
+        "frontend/src/components/lessons/LessonEditorDialog.tsx",
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "Generated images must exist in frontend/public/assets/generated with the specified filenames and be used in header and landing/catalog area.",
+      "reason": "AppHeader references the logo at /assets/generated/dance-logo.dim_512x512.png, but the diff summary does not evidence that the required image files were actually added under frontend/public/assets/generated (many added files are omitted due to limits). The hero image usage is not evidenced in shown files.",
+      "evidence": [
+        "frontend/src/components/layout/AppHeader.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Secret-token-based access control initialization via URL parameter `caffeineAdminToken`.",
+      "reason": "BuildRequest asked for a first-admin bootstrap mechanism and admin role grant/revoke; it did not request a hidden URL token mechanism for initializing access control.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "Branding/footer promotion link to caffeine.ai.",
+      "reason": "BuildRequest did not request adding an external promotional link in the UI footer.",
+      "evidence": [
+        "frontend/src/components/layout/AppFooter.tsx"
+      ]
+    },
+    {
+      "description": "Admin payment setup screens/routes (`/admin/payment-setup`) separate from the Stripe booking payment flow.",
+      "reason": "BuildRequest requires Stripe Checkout for booking payments but does not request an explicit admin payment-setup page/route in the UI.",
+      "evidence": [
+        "frontend/src/App.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.66,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/AccessDeniedScreen.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/auth/ProfileSetupDialog.tsx",
+    "frontend/src/components/auth/RoleGate.tsx",
+    "frontend/src/components/bookings/BookingButton.tsx",
+    "frontend/src/components/classes/ClassEditorDialog.tsx",
+    "frontend/src/components/instructor/SessionRosterPanel.tsx",
+    "frontend/src/components/layout/AppFooter.tsx",
+    "frontend/src/components/layout/AppHeader.tsx",
+    "frontend/src/components/lessons/LessonEditorDialog.tsx",
+    "frontend/src/components/payments/PayForBookingButton.tsx",
+    "frontend/src/components/sessions/SessionEditorDialog.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useCallerRole.ts",
+    "frontend/src/hooks/useCurrentUserProfile.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/hooks/useStripeCheckout.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/admin/AdminRoleManagementPage.tsx",
+    "frontend/src/pages/admin/PaymentSetupPage.tsx",
+    "frontend/src/pages/bookings/MyBookingsPage.tsx",
+    "frontend/src/pages/catalog/CatalogPage.tsx",
+    "frontend/src/pages/catalog/ClassDetailPage.tsx",
+    "frontend/src/pages/instructor/InstructorDashboardPage.tsx",
+    "frontend/src/pages/instructor/ManageLessonsPage.tsx",
+    "frontend/src/pages/lessons/VideoLessonDetailPage.tsx",
+    "frontend/src/pages/lessons/VideoLessonsPage.tsx",
+    "frontend/src/pages/payments/PaymentFailurePage.tsx",
+    "frontend/src/pages/payments/PaymentSuccessPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-internet-identity-sign-in-and-a-user-profile-record-in-the-backend-including-role-based-access-control-for-at-least-student-instructor-and-admin",
+      "featureTitle": "Implement Internet Identity sign-in and a user profile record in the backend, including role-based access control for at least: student, instructor, and admin.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/AccessDeniedScreen.tsx",
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/auth/ProfileSetupDialog.tsx",
+        "frontend/src/components/auth/RoleGate.tsx",
+        "frontend/src/hooks/useCallerRole.ts",
+        "frontend/src/hooks/useCurrentUserProfile.ts",
+        "frontend/src/index.css",
+        "frontend/src/main.tsx",
+        "frontend/src/pages/admin/AdminRoleManagementPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-dance-class-catalog-feature-persist-classes-in-the-backend-and-provide-a-frontend-to-browse-search-and-view-class-details",
+      "featureTitle": "Create a dance class catalog feature: persist classes in the backend and provide a frontend to browse, search, and view class details.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppHeader.tsx",
+        "frontend/src/pages/catalog/CatalogPage.tsx",
+        "frontend/src/pages/catalog/ClassDetailPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-instructor-schedule-management-instructors-admins-can-create-and-manage-scheduled-class-sessions-date-time-capacity-location-online-link-associated-with-a-class",
+      "featureTitle": "Implement instructor schedule management: instructors/admins can create and manage scheduled class sessions (date/time, capacity, location/online link) associated with a class.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/sessions/SessionEditorDialog.tsx",
+        "frontend/src/pages/catalog/ClassDetailPage.tsx",
+        "frontend/src/pages/instructor/InstructorDashboardPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-class-booking-flow-students-can-book-a-specific-scheduled-session-with-booking-records-persisted-in-the-backend-and-visible-to-students-and-instructors",
+      "featureTitle": "Implement class booking flow: students can book a specific scheduled session, with booking records persisted in the backend and visible to students and instructors.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/bookings/BookingButton.tsx",
+        "frontend/src/components/instructor/SessionRosterPanel.tsx",
+        "frontend/src/pages/bookings/MyBookingsPage.tsx",
+        "frontend/src/pages/instructor/InstructorDashboardPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-payments-for-class-bookings-using-stripe-checkout-initiate-payment-for-a-pending-booking-and-update-booking-status-upon-successful-payment-confirmation",
+      "featureTitle": "Add payments for class bookings using Stripe Checkout: initiate payment for a pending booking and update booking status upon successful payment confirmation.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/payments/PayForBookingButton.tsx",
+        "frontend/src/hooks/useStripeCheckout.ts",
+        "frontend/src/pages/admin/PaymentSetupPage.tsx",
+        "frontend/src/pages/bookings/MyBookingsPage.tsx",
+        "frontend/src/pages/payments/PaymentFailurePage.tsx",
+        "frontend/src/pages/payments/PaymentSuccessPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-provide-an-on-demand-video-lessons-library-instructors-admins-can-create-manage-lesson-entries-and-students-can-browse-and-play-lessons-from-the-app",
+      "featureTitle": "Provide an on-demand video lessons library: instructors/admins can create/manage lesson entries and students can browse and play lessons from the app.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/instructor/ManageLessonsPage.tsx",
+        "frontend/src/pages/lessons/VideoLessonDetailPage.tsx",
+        "frontend/src/pages/lessons/VideoLessonsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-coherent-visual-theme-across-the-app-colors-typography-spacing-components-suitable-for-a-dance-brand-avoiding-blue-purple-as-primary-colors",
+      "featureTitle": "Apply a coherent visual theme across the app (colors, typography, spacing, components) suitable for a dance brand, avoiding blue/purple as primary colors.",
+      "files": [
+        "frontend/src/components/layout/AppHeader.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/bookings/MyBookingsPage.tsx",
+        "frontend/src/pages/catalog/CatalogPage.tsx",
+        "frontend/src/pages/instructor/InstructorDashboardPage.tsx",
+        "frontend/src/pages/lessons/VideoLessonsPage.tsx",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-generated-static-image-assets-to-the-frontend-and-use-them-in-the-ui-served-from-frontend-public-assets-generated",
+      "featureTitle": "Add generated static image assets to the frontend and use them in the UI (served from frontend/public/assets/generated).",
+      "files": [
+        "frontend/src/components/layout/AppHeader.tsx",
+        "frontend/src/pages/catalog/CatalogPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

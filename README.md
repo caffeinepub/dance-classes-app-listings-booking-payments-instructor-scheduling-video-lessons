@@ -1,2 +1,3 @@
-# dance-classes-app-listings-booking-payments-instructor-scheduling-video-lessons
-Exported from Caffeine project: Dance Classes App: Listings, Booking + Payments, Instructor Scheduling, Video Lessons
+## Dance Classes App: Listings, Booking + Payments, Instructor Scheduling, Video Lessons
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

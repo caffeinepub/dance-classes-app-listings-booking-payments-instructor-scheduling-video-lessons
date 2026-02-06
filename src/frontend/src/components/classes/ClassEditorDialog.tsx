@@ -5,8 +5,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { DanceClass } from '../../backend';
 import { toast } from 'sonner';
+import { CLASS_LEVELS } from '../../constants/classLevels';
+import { DANCE_STYLES } from '../../constants/danceStyles';
 
 interface ClassEditorDialogProps {
   open: boolean;
@@ -25,6 +28,17 @@ export default function ClassEditorDialog({ open, onClose }: ClassEditorDialogPr
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!level) {
+      toast.error('Please select a level');
+      return;
+    }
+
+    if (!style) {
+      toast.error('Please select a style');
+      return;
+    }
+
     try {
       const newClass: DanceClass = {
         id: BigInt(0),
@@ -66,30 +80,40 @@ export default function ClassEditorDialog({ open, onClose }: ClassEditorDialogPr
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="e.g., Beginner Salsa"
+              placeholder="e.g., Beginner Bharatnatyam"
               required
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="style">Style *</Label>
-              <Input
-                id="style"
-                value={style}
-                onChange={(e) => setStyle(e.target.value)}
-                placeholder="e.g., Salsa"
-                required
-              />
+              <Select value={style} onValueChange={setStyle} required>
+                <SelectTrigger id="style">
+                  <SelectValue placeholder="Select style" />
+                </SelectTrigger>
+                <SelectContent>
+                  {DANCE_STYLES.map((styleOption) => (
+                    <SelectItem key={styleOption} value={styleOption}>
+                      {styleOption}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="space-y-2">
               <Label htmlFor="level">Level *</Label>
-              <Input
-                id="level"
-                value={level}
-                onChange={(e) => setLevel(e.target.value)}
-                placeholder="e.g., Beginner"
-                required
-              />
+              <Select value={level} onValueChange={setLevel} required>
+                <SelectTrigger id="level">
+                  <SelectValue placeholder="Select level" />
+                </SelectTrigger>
+                <SelectContent>
+                  {CLASS_LEVELS.map((levelOption) => (
+                    <SelectItem key={levelOption} value={levelOption}>
+                      {levelOption}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <div className="space-y-2">

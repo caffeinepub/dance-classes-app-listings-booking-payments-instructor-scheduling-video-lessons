@@ -21,6 +21,12 @@ export type ClassId = bigint;
 export type ClassStatus = { 'canceled' : null } |
   { 'pendingPayment' : { 'sessionId' : SessionId, 'amount' : bigint } } |
   { 'confirmed' : null };
+export interface ContactInquiry {
+  'name' : string,
+  'email' : string,
+  'message' : string,
+  'timestamp' : Time,
+}
 export interface DanceClass {
   'id' : ClassId,
   'title' : string,
@@ -100,10 +106,14 @@ export interface _SERVICE {
   >,
   'createDanceClass' : ActorMethod<[DanceClass], undefined>,
   'createSession' : ActorMethod<[Session], undefined>,
+  'getAllContactInquiries' : ActorMethod<[], Array<ContactInquiry>>,
   'getAllDanceClasses' : ActorMethod<[], Array<DanceClass>>,
+  'getAllUsers' : ActorMethod<[], Array<[Principal, UserProfile]>>,
   'getAllVideoLessons' : ActorMethod<[], Array<VideoLesson>>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getDanceClass' : ActorMethod<[ClassId], [] | [DanceClass]>,
+  'getSession' : ActorMethod<[SessionId], [] | [Session]>,
   'getSessionsForClass' : ActorMethod<[ClassId], Array<Session>>,
   'getStripeSessionStatus' : ActorMethod<[string], StripeSessionStatus>,
   'getUserBookings' : ActorMethod<[], Array<Booking>>,
@@ -112,6 +122,7 @@ export interface _SERVICE {
   'isStripeConfigured' : ActorMethod<[], boolean>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'setStripeConfiguration' : ActorMethod<[StripeConfiguration], undefined>,
+  'submitContactInquiry' : ActorMethod<[ContactInquiry], undefined>,
   'transform' : ActorMethod<[TransformationInput], TransformationOutput>,
   'uploadVideoLesson' : ActorMethod<[VideoLesson], undefined>,
 }

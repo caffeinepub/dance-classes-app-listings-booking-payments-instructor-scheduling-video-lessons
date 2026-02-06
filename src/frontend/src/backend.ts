@@ -181,6 +181,12 @@ export interface StripeConfiguration {
     allowedCountries: Array<string>;
     secretKey: string;
 }
+export interface ContactInquiry {
+    name: string;
+    email: string;
+    message: string;
+    timestamp: Time;
+}
 export type ClassId = bigint;
 export interface UserProfile {
     name: string;
@@ -199,10 +205,14 @@ export interface backendInterface {
     createCheckoutSession(items: Array<ShoppingItem>, successUrl: string, cancelUrl: string): Promise<string>;
     createDanceClass(newClass: DanceClass): Promise<void>;
     createSession(newSession: Session): Promise<void>;
+    getAllContactInquiries(): Promise<Array<ContactInquiry>>;
     getAllDanceClasses(): Promise<Array<DanceClass>>;
+    getAllUsers(): Promise<Array<[Principal, UserProfile]>>;
     getAllVideoLessons(): Promise<Array<VideoLesson>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
+    getDanceClass(classId: ClassId): Promise<DanceClass | null>;
+    getSession(sessionId: SessionId): Promise<Session | null>;
     getSessionsForClass(classId: ClassId): Promise<Array<Session>>;
     getStripeSessionStatus(sessionId: string): Promise<StripeSessionStatus>;
     getUserBookings(): Promise<Array<Booking>>;
@@ -211,10 +221,11 @@ export interface backendInterface {
     isStripeConfigured(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     setStripeConfiguration(config: StripeConfiguration): Promise<void>;
+    submitContactInquiry(inquiry: ContactInquiry): Promise<void>;
     transform(input: TransformationInput): Promise<TransformationOutput>;
     uploadVideoLesson(newLesson: VideoLesson): Promise<void>;
 }
-import type { Booking as _Booking, ClassStatus as _ClassStatus, SessionId as _SessionId, StripeSessionStatus as _StripeSessionStatus, Time as _Time, UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
+import type { Booking as _Booking, ClassStatus as _ClassStatus, DanceClass as _DanceClass, Session as _Session, SessionId as _SessionId, StripeSessionStatus as _StripeSessionStatus, Time as _Time, UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
     async _initializeAccessControlWithSecret(arg0: string): Promise<void> {
@@ -301,6 +312,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async getAllContactInquiries(): Promise<Array<ContactInquiry>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllContactInquiries();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllContactInquiries();
+            return result;
+        }
+    }
     async getAllDanceClasses(): Promise<Array<DanceClass>> {
         if (this.processError) {
             try {
@@ -312,6 +337,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.getAllDanceClasses();
+            return result;
+        }
+    }
+    async getAllUsers(): Promise<Array<[Principal, UserProfile]>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllUsers();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllUsers();
             return result;
         }
     }
@@ -357,6 +396,34 @@ export class Backend implements backendInterface {
             return from_candid_UserRole_n8(this._uploadFile, this._downloadFile, result);
         }
     }
+    async getDanceClass(arg0: ClassId): Promise<DanceClass | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getDanceClass(arg0);
+                return from_candid_opt_n10(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getDanceClass(arg0);
+            return from_candid_opt_n10(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getSession(arg0: SessionId): Promise<Session | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getSession(arg0);
+                return from_candid_opt_n11(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getSession(arg0);
+            return from_candid_opt_n11(this._uploadFile, this._downloadFile, result);
+        }
+    }
     async getSessionsForClass(arg0: ClassId): Promise<Array<Session>> {
         if (this.processError) {
             try {
@@ -375,28 +442,28 @@ export class Backend implements backendInterface {
         if (this.processError) {
             try {
                 const result = await this.actor.getStripeSessionStatus(arg0);
-                return from_candid_StripeSessionStatus_n10(this._uploadFile, this._downloadFile, result);
+                return from_candid_StripeSessionStatus_n12(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getStripeSessionStatus(arg0);
-            return from_candid_StripeSessionStatus_n10(this._uploadFile, this._downloadFile, result);
+            return from_candid_StripeSessionStatus_n12(this._uploadFile, this._downloadFile, result);
         }
     }
     async getUserBookings(): Promise<Array<Booking>> {
         if (this.processError) {
             try {
                 const result = await this.actor.getUserBookings();
-                return from_candid_vec_n14(this._uploadFile, this._downloadFile, result);
+                return from_candid_vec_n16(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getUserBookings();
-            return from_candid_vec_n14(this._uploadFile, this._downloadFile, result);
+            return from_candid_vec_n16(this._uploadFile, this._downloadFile, result);
         }
     }
     async getUserProfile(arg0: Principal): Promise<UserProfile | null> {
@@ -469,6 +536,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async submitContactInquiry(arg0: ContactInquiry): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.submitContactInquiry(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.submitContactInquiry(arg0);
+            return result;
+        }
+    }
     async transform(arg0: TransformationInput): Promise<TransformationOutput> {
         if (this.processError) {
             try {
@@ -504,19 +585,25 @@ function from_candid_Booking_n3(_uploadFile: (file: ExternalBlob) => Promise<Uin
 function from_candid_ClassStatus_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ClassStatus): ClassStatus {
     return from_candid_variant_n6(_uploadFile, _downloadFile, value);
 }
-function from_candid_StripeSessionStatus_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _StripeSessionStatus): StripeSessionStatus {
-    return from_candid_variant_n11(_uploadFile, _downloadFile, value);
+function from_candid_StripeSessionStatus_n12(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _StripeSessionStatus): StripeSessionStatus {
+    return from_candid_variant_n13(_uploadFile, _downloadFile, value);
 }
 function from_candid_UserRole_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
     return from_candid_variant_n9(_uploadFile, _downloadFile, value);
 }
-function from_candid_opt_n13(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [string]): string | null {
+function from_candid_opt_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_DanceClass]): DanceClass | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Session]): Session | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n15(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [string]): string | null {
     return value.length === 0 ? null : value[0];
 }
 function from_candid_opt_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserProfile]): UserProfile | null {
     return value.length === 0 ? null : value[0];
 }
-function from_candid_record_n12(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_record_n14(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     userPrincipal: [] | [string];
     response: string;
 }): {
@@ -524,7 +611,7 @@ function from_candid_record_n12(_uploadFile: (file: ExternalBlob) => Promise<Uin
     response: string;
 } {
     return {
-        userPrincipal: record_opt_to_undefined(from_candid_opt_n13(_uploadFile, _downloadFile, value.userPrincipal)),
+        userPrincipal: record_opt_to_undefined(from_candid_opt_n15(_uploadFile, _downloadFile, value.userPrincipal)),
         response: value.response
     };
 }
@@ -549,7 +636,7 @@ function from_candid_record_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint
         sessionId: value.sessionId
     };
 }
-function from_candid_variant_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n13(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     completed: {
         userPrincipal: [] | [string];
         response: string;
@@ -572,7 +659,7 @@ function from_candid_variant_n11(_uploadFile: (file: ExternalBlob) => Promise<Ui
 } {
     return "completed" in value ? {
         __kind__: "completed",
-        completed: from_candid_record_n12(_uploadFile, _downloadFile, value.completed)
+        completed: from_candid_record_n14(_uploadFile, _downloadFile, value.completed)
     } : "failed" in value ? {
         __kind__: "failed",
         failed: value.failed
@@ -620,7 +707,7 @@ function from_candid_variant_n9(_uploadFile: (file: ExternalBlob) => Promise<Uin
 }): UserRole {
     return "admin" in value ? UserRole.admin : "user" in value ? UserRole.user : "guest" in value ? UserRole.guest : value;
 }
-function from_candid_vec_n14(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Booking>): Array<Booking> {
+function from_candid_vec_n16(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Booking>): Array<Booking> {
     return value.map((x)=>from_candid_Booking_n3(_uploadFile, _downloadFile, x));
 }
 function to_candid_UserRole_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): _UserRole {

@@ -1,11 +1,15 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
-  "summary": "Dance classes app including class listings, booking and payments, instructor schedule management, and video lessons.",
-  "architectural_notes": [],
+  "projectStateVersion": 43,
+  "summary": "Dance classes app/website including class listings, booking and payments, instructor schedule management, video lessons, marketing website content, plus an online registration system.",
+  "architectural_notes": [
+    "Include public-facing website/landing pages in addition to the authenticated app experience.",
+    "Public contact page should support richer instructor profile content (photo + short intro/bio) in addition to basic contact details like phone number.",
+    "Public contact information should include an email address (jayakumarsujatha@gmail.com) in addition to phone/name/photo/bio.",
+    "Public-facing site should include a Biodata/About section to present the instructor’s professional summary and core competencies."
+  ],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Dance studio brand logo mark, clean modern vector-style on transparent background (dance-logo.dim_512x512.png)\n- Warm energetic hero illustration showing silhouettes of dancers in motion, minimal background, wide banner composition (dance-hero.dim_1600x600.png)",
   "existing_features": [
     {
       "id": "feature-implement-internet-identity-sign-in-and-a-user-profile-record-in-the-backend-including-role-based-access-control-for-at-least-student-instructor-and-admin",
@@ -70,6 +74,350 @@
         "REQ-8"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-enhance-the-my-bookings-page-to-display-upcoming-session-information-for-each-booking-by-joining-booking-session-class-e-g-class-title-session-start-date-time-duration-location-online-link-instead-of-only-showing-a-session-id",
+      "title": "Enhance the “My Bookings” page to display upcoming session information for each booking by joining booking -> session -> class (e.g., class title, session start date/time, duration, location/online link) instead of only showing a session ID.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-class-reminders-as-client-side-in-app-reminders-for-booked-sessions-allow-users-to-enable-a-reminder-for-a-booking-and-choose-a-reminder-lead-time-e-g-15-30-60-minutes-24-hours-persist-the-preference-locally-and-show-a-reminder-when-the-session-is-approaching-while-the-app-is-open",
+      "title": "Implement “class reminders” as client-side, in-app reminders for booked sessions: allow users to enable a reminder for a booking and choose a reminder lead time (e.g., 15/30/60 minutes, 24 hours), persist the preference locally, and show a reminder when the session is approaching while the app is open.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-add-to-calendar-action-for-booked-sessions-that-downloads-an-ics-calendar-event-generated-in-the-frontend-using-the-session-and-class-details",
+      "title": "Add an “Add to calendar” action for booked sessions that downloads an .ics calendar event generated in the frontend using the session and class details.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-site-contact-information-display-to-show-sujatha-jagan-s-name-with-correct-capitalization-and-display-the-phone-number-exactly-as-8110849943-with-a-clickable-tel-link",
+      "title": "Update the site contact information display to show Sujatha Jagan’s name with correct capitalization and display the phone number exactly as \"8110849943\" with a clickable tel link.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-small-contact-photo-and-a-short-intro-section-for-sujatha-jagan-in-the-existing-contact-area-currently-in-the-footer-using-english-user-facing-text",
+      "title": "Add a small contact photo and a short intro section for Sujatha Jagan in the existing contact area (currently in the footer), using English user-facing text.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-generated-contact-photo-image-as-a-static-asset-under-frontend-public-assets-generated-and-render-it-in-the-contact-section",
+      "title": "Add the generated contact photo image as a static asset under frontend/public/assets/generated and render it in the contact section.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-new-static-portrait-image-asset-from-the-uploaded-photo-and-save-it-under-frontend-public-assets-generated-as-sujatha-portrait-dim-512x512-png-suitable-for-a-circular-avatar-square-crop-subject-centered-clean-edges-no-visible-background-distractions",
+      "title": "Create a new static portrait image asset from the uploaded photo and save it under frontend/public/assets/generated as sujatha-portrait.dim_512x512.png, suitable for a circular avatar (square crop, subject centered, clean edges, no visible background distractions).",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-contact-portrait-shown-in-the-footer-so-the-visible-framing-is-only-up-to-the-bust-head-and-shoulders-bust-crop-while-keeping-the-avatar-circular-and-the-existing-english-alt-text-unchanged",
+      "title": "Update the contact portrait shown in the footer so the visible framing is only up to the bust (head-and-shoulders/bust crop), while keeping the avatar circular and the existing English alt text unchanged.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-new-square-portrait-image-asset-from-the-newly-uploaded-photo-fb-img-1610732445255-jpg-suitable-for-a-circular-avatar-head-and-shoulders-bust-crop-subject-centered-clean-edges-and-minimize-background-distractions-save-it-as-a-static-asset-under-frontend-public-assets-generated",
+      "title": "Create a new square portrait image asset from the newly uploaded photo (FB_IMG_1610732445255.jpg), suitable for a circular avatar: head-and-shoulders/bust crop, subject centered, clean edges, and minimize background distractions; save it as a static asset under frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-existing-footer-contact-portrait-to-use-the-new-generated-image-asset-sujatha-portrait-v2-dim-512x512-png-while-keeping-the-avatar-circular-and-leaving-the-existing-english-alt-text-and-the-rest-of-the-contact-section-unchanged",
+      "title": "Update the existing footer contact portrait to use the new generated image asset (sujatha-portrait-v2.dim_512x512.png) while keeping the avatar circular and leaving the existing English alt text and the rest of the contact section unchanged.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-class-level-inputs-in-the-ui-to-use-a-dropdown-that-includes-the-fixed-level-options-beginner-intermediate-and-expert-english-user-facing-text-apply-this-to-the-class-creation-form-and-the-class-catalog-level-filter-so-users-can-select-these-levels-from-a-dropdown-rather-than-typing-free-text",
+      "title": "Update the class level inputs in the UI to use a dropdown that includes the fixed level options \"Beginner\", \"Intermediate\", and \"Expert\" (English user-facing text). Apply this to the class creation form and the class catalog level filter so users can select these levels from a dropdown rather than typing free text.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-shared-fixed-list-of-dance-style-options-and-use-it-to-power-style-dropdown-menus-including-the-options-bharatnatyam-semi-classical-and-bollywood-fusion-english-user-facing-text",
+      "title": "Add a shared, fixed list of dance style options and use it to power style dropdown menus, including the options \"Bharatnatyam\", \"Semi-classical\", and \"Bollywood Fusion\" (English user-facing text).",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-class-creation-edit-ui-to-use-a-style-dropdown-instead-of-free-text-backed-by-the-shared-style-options-list",
+      "title": "Update the class creation/edit UI to use a style dropdown (instead of free-text) backed by the shared style options list.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-video-lesson-creation-ui-to-use-a-style-dropdown-instead-of-free-text-backed-by-the-shared-style-options-list",
+      "title": "Update the video lesson creation UI to use a style dropdown (instead of free-text) backed by the shared style options list.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-style-filter-dropdown-menus-in-the-class-catalog-and-video-lessons-pages-include-the-fixed-style-options-list-so-users-can-select-bharatnatyam-semi-classical-and-bollywood-fusion-even-when-there-are-not-yet-any-items-of-that-style",
+      "title": "Ensure the style filter dropdown menus in the class catalog and video lessons pages include the fixed style options list, so users can select \"Bharatnatyam\", \"Semi-classical\", and \"Bollywood Fusion\" even when there are not yet any items of that style.",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-extend-the-shared-fixed-dance-styles-options-list-to-include-the-additional-styles-classical-fusion-indo-western-and-bollywood-english-user-facing-text-and-ensure-these-options-appear-anywhere-the-shared-styles-list-is-used-class-create-edit-style-dropdown-video-lesson-create-edit-style-dropdown-and-style-filter-dropdowns-in-the-class-catalog-and-video-lessons-pages",
+      "title": "Extend the shared, fixed dance styles options list to include the additional styles \"Classical fusion\", \"Indo western\", and \"Bollywood\" (English user-facing text), and ensure these options appear anywhere the shared styles list is used (class create/edit style dropdown, video lesson create/edit style dropdown, and style filter dropdowns in the class catalog and video lessons pages).",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-dedicated-online-registration-entry-point-in-the-frontend-for-new-users-that-guides-them-through-internet-identity-sign-in-and-completing-their-user-profile-registration-if-it-does-not-exist",
+      "title": "Add a dedicated online registration entry point in the frontend for new users that guides them through Internet Identity sign-in and completing their user profile (registration) if it does not exist.",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-registration-completion-has-a-clear-success-path-in-the-frontend-confirmation-and-navigation-without-disrupting-existing-booking-and-profile-setup-behavior-already-triggered-elsewhere-in-the-app",
+      "title": "Ensure registration completion has a clear success path in the frontend (confirmation and navigation) without disrupting existing booking and profile-setup behavior already triggered elsewhere in the app.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-admin-only-frontend-page-to-view-the-registrations-list-registered-users-powered-by-the-new-backend-admin-query",
+      "title": "Add an admin-only frontend page to view the registrations list (registered users) powered by the new backend admin query.",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-dedicated-online-registration-form-ui-on-the-existing-register-page-that-collects-the-required-user-profile-details-and-submits-them-to-the-backend-when-the-user-is-authenticated-but-not-yet-registered",
+      "title": "Implement a dedicated online registration form UI on the existing /register page that collects the required user profile details and submits them to the backend when the user is authenticated but not yet registered.",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-registration-form-integrates-cleanly-with-the-existing-profile-setup-behavior-used-elsewhere-in-the-app-e-g-the-global-profile-setup-prompt-in-the-main-layout-without-introducing-duplicate-prompts-or-confusing-ux-on-register",
+      "title": "Ensure the registration form integrates cleanly with the existing profile setup behavior used elsewhere in the app (e.g., the global profile setup prompt in the main layout) without introducing duplicate prompts or confusing UX on /register.",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-existing-footer-contact-information-ui-to-display-the-email-address-jayakumarsujatha-gmail-com-alongside-the-current-contact-details-using-an-email-mailto-link",
+      "title": "Update the existing footer contact information UI to display the email address \"jayakumarsujatha@gmail.com\" alongside the current contact details, using an email (mailto:) link.",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-public-facing-contact-page-route-e-g-contact-with-an-english-contact-form-that-allows-users-to-submit-inquiries-with-fields-for-name-email-optional-phone-optional-and-message-and-submits-to-the-backend-inquiry-endpoint",
+      "title": "Add a new public-facing Contact page route (e.g., /contact) with an English contact form that allows users to submit inquiries with fields for Name, Email (optional), Phone (optional), and Message, and submits to the backend inquiry endpoint.",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-admin-only-page-to-review-submitted-contact-inquiries-e-g-admin-inquiries-protected-by-the-existing-rolegate-admin-access-control-displaying-a-table-list-of-inquiries-with-created-time-name-email-phone-if-provided-and-message-content",
+      "title": "Add an admin-only page to review submitted contact inquiries (e.g., /admin/inquiries) protected by the existing RoleGate admin access control, displaying a table/list of inquiries with created time, name, email/phone (if provided), and message content.",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-react-query-hooks-and-typed-frontend-bindings-necessary-to-call-the-new-backend-contact-inquiry-endpoints-following-existing-patterns-in-frontend-src-hooks-usequeries-ts-for-queries-mutations-and-cache-invalidation",
+      "title": "Add React Query hooks and typed frontend bindings necessary to call the new backend contact inquiry endpoints, following existing patterns in frontend/src/hooks/useQueries.ts for queries, mutations, and cache invalidation.",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-visible-navigation-entry-point-to-the-new-contact-page-from-the-existing-marketing-ui-at-minimum-from-the-footer-using-english-user-facing-link-text",
+      "title": "Add a visible navigation entry point to the new Contact page from the existing marketing UI (at minimum from the footer), using English user-facing link text.",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-expose-the-existing-admin-only-contact-inquiries-view-in-the-ui-by-adding-a-visible-admin-navigation-link-to-the-admin-inquiries-route-desktop-and-mobile-navigation-use-english-link-text",
+      "title": "Expose the existing admin-only Contact Inquiries view in the UI by adding a visible admin navigation link to the /admin/inquiries route (desktop and mobile navigation). Use English link text.",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-new-public-facing-testimonials-page-route-e-g-testimonials-that-displays-a-testimonials-section-with-multiple-customer-testimonial-cards-using-english-user-facing-text",
+      "title": "Create a new public-facing Testimonials page route (e.g., /testimonials) that displays a testimonials section with multiple customer testimonial cards using English user-facing text.",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-visible-navigation-entry-points-to-the-testimonials-page-from-the-main-site-navigation-desktop-and-mobile-and-from-the-footer-using-english-link-text-testimonials",
+      "title": "Add visible navigation entry points to the Testimonials page from the main site navigation (desktop and mobile) and from the footer, using English link text \"Testimonials\".",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-extend-the-testimonials-data-model-used-in-the-testimonials-page-to-support-organizing-testimonials-via-one-or-more-categories-tags-per-testimonial-in-addition-to-the-existing-fields-like-quote-name-role-and-style",
+      "title": "Extend the testimonials data model used in the Testimonials page to support organizing testimonials via one or more categories/tags per testimonial (in addition to the existing fields like quote, name, role, and style).",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-testimonials-ui-to-let-users-browse-testimonials-by-category-tag-using-clear-english-user-facing-text-e-g-a-filter-control-such-as-tabs-chips-and-an-all-option",
+      "title": "Update the /testimonials UI to let users browse testimonials by category/tag, using clear English user-facing text (e.g., a filter control such as tabs/chips and an \"All\" option).",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-category-tag-ui-is-accessible-filter-controls-must-be-keyboard-navigable-have-appropriate-focus-states-and-use-semantic-elements-aria-where-needed",
+      "title": "Ensure the category/tag UI is accessible: filter controls must be keyboard-navigable, have appropriate focus states, and use semantic elements/ARIA where needed.",
+      "reqIds": [
+        "REQ-44"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-public-facing-photo-gallery-page-route-at-gallery-that-displays-a-responsive-grid-of-photo-cards-using-the-uploaded-images-as-static-assets-with-english-user-facing-heading-and-helper-text",
+      "title": "Add a new public-facing Photo Gallery page route at /gallery that displays a responsive grid of photo cards using the uploaded images as static assets, with English user-facing heading and helper text.",
+      "reqIds": [
+        "REQ-45"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-an-image-viewer-interaction-on-the-gallery-page-so-users-can-click-tap-a-photo-to-view-a-larger-version-modal-lightbox-and-close-it-using-an-on-screen-close-control-and-the-escape-key",
+      "title": "Implement an image viewer interaction on the /gallery page so users can click/tap a photo to view a larger version (modal/lightbox) and close it using an on-screen close control and the Escape key.",
+      "reqIds": [
+        "REQ-46"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-visible-navigation-entry-points-to-the-new-gallery-route-from-the-main-site-navigation-desktop-and-mobile-and-from-the-footer-using-english-link-text-gallery",
+      "title": "Add visible navigation entry points to the new /gallery route from the main site navigation (desktop and mobile) and from the footer, using English link text \"Gallery\".",
+      "reqIds": [
+        "REQ-47"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-uploaded-images-as-static-assets-under-frontend-public-assets-generated-including-a-reasonable-full-size-version-and-a-smaller-thumbnail-version-for-each-and-update-the-gallery-page-to-use-the-thumbnail-in-the-grid-and-the-full-size-image-in-the-modal",
+      "title": "Add the uploaded images as static assets under frontend/public/assets/generated (including a reasonable full-size version and a smaller thumbnail version for each), and update the /gallery page to use the thumbnail in the grid and the full-size image in the modal.",
+      "reqIds": [
+        "REQ-48"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-optimized-gallery-image-assets-from-the-uploaded-file-img-20210111-wa0043-jpg-and-add-them-as-static-files-under-frontend-public-assets-generated-using-the-existing-gallery-naming-and-sizing-conventions-one-full-size-image-and-one-thumbnail",
+      "title": "Create optimized gallery image assets from the uploaded file IMG-20210111-WA0043.jpg and add them as static files under frontend/public/assets/generated using the existing gallery naming and sizing conventions (one full-size image and one thumbnail).",
+      "reqIds": [
+        "REQ-49"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-gallery-page-to-include-the-new-photo-in-the-gallery-grid-and-modal-viewer-by-adding-a-new-entry-to-the-existing-galleryimages-list-that-references-the-newly-generated-thumbnail-and-full-size-asset-paths-and-includes-english-alt-text",
+      "title": "Update the /gallery page to include the new photo in the gallery grid and modal viewer by adding a new entry to the existing galleryImages list that references the newly generated thumbnail and full-size asset paths and includes English alt text.",
+      "reqIds": [
+        "REQ-50"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-public-photo-gallery-section-from-the-frontend-by-removing-the-gallery-route-and-ensuring-the-app-no-longer-imports-or-references-the-gallery-page-component",
+      "title": "Remove the public Photo Gallery section from the frontend by removing the /gallery route and ensuring the app no longer imports or references the Gallery page component.",
+      "reqIds": [
+        "REQ-51"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-all-user-facing-navigation-entry-points-to-the-gallery-section-from-both-desktop-and-mobile-navigation-in-the-header-and-from-the-footer-site-links",
+      "title": "Remove all user-facing navigation entry points to the Gallery section from both desktop and mobile navigation in the header, and from the footer site links.",
+      "reqIds": [
+        "REQ-52"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-new-public-facing-biodata-page-route-at-biodata-and-render-an-english-page-heading-biodata",
+      "title": "Create a new public-facing Biodata page route at /biodata and render an English page heading \"Biodata\".",
+      "reqIds": [
+        "REQ-53"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-biodata-page-display-the-provided-content-as-two-sections-1-professional-summary-with-the-summary-paragraph-and-2-core-competencies-as-a-bulleted-list-with-the-four-competency-items",
+      "title": "On the /biodata page, display the provided content as two sections: (1) \"Professional Summary\" with the summary paragraph, and (2) \"Core Competencies\" as a bulleted list with the four competency items.",
+      "reqIds": [
+        "REQ-54"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-visible-navigation-entry-points-to-the-biodata-page-from-a-the-main-site-navigation-desktop-and-mobile-header-and-b-the-footer-site-links-using-english-link-text-biodata",
+      "title": "Add visible navigation entry points to the /biodata page from (a) the main site navigation (desktop and mobile header) and (b) the footer site links, using English link text \"Biodata\".",
+      "reqIds": [
+        "REQ-55"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -100,6 +448,136 @@
     {
       "id": "AR-5",
       "summary": "Provide video lessons (on-demand lesson library)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Add class reminders (e.g., upcoming session notifications/reminders for booked classes)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Add backend query methods to fetch details needed to render reminders for a user’s bookings: (1) fetch a single Session by sessionId and (2) fetch a single DanceClass by classId.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add dance styles/categories (e.g., Bharatnatyam, folk, semi-classical, Bollywood) to the class/catalog experience.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Create/enable a dance class website/landing experience (public-facing marketing pages) alongside the app.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Add contact information section/page (store instructor/contact name and phone number; display address/phone/hours/contact details).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Enhance the public contact section/page to include primary phone number plus an instructor photo and short intro/bio section (e.g., for Sujatha Jagan).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Update the footer contact photo to use the new sujatha-portrait.dim_512x512.png asset (keep existing English alt text and the rest of the contact section unchanged).",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Add a level dropdown (Beginner / Intermediate / Expert) in the UI",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Add a dance styles dropdown menu including options like Bharatnatyam, Semi-classical, and Bollywood Fusion.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Add additional dance style options to the shared styles list/dropdowns: \"Classical fusion\", \"Indo western\", and \"Bollywood\".",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Add an online registration system (user sign-up/registration flow)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Add a backend admin-only query to list registered users (user profiles) so administrators can view registrations within the app.",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Add online registration forms (frontend forms to collect and submit required registration/profile details during the registration flow)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Add email address (jayakumarsujatha@gmail.com) to the contact information display.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Add contact forms (public-facing contact form for users to send inquiries)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-24",
+      "summary": "Implement backend support for contact inquiries, including a new ContactInquiry record type persisted in canister state and endpoints to (1) submit a contact inquiry (available to guests and authenticated users) and (2) allow admins to list all submitted inquiries.",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-25",
+      "summary": "Add an admin-only view/page to review submitted contact form inquiries (list/table of inquiries, protected by admin role).",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-26",
+      "summary": "Add testimonials section/page to the public-facing website (display customer testimonials).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-27",
+      "summary": "Add categories/tags to organize testimonials (e.g., group testimonials by type)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-28",
+      "summary": "Add a “Biodata” section/page on the public site to display the instructor professional summary and core competencies text.",
       "reqIds": [],
       "status": "pending"
     }

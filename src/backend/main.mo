@@ -1,11 +1,11 @@
 import Map "mo:core/Map";
-import Iter "mo:core/Iter";
 import Principal "mo:core/Principal";
 import Runtime "mo:core/Runtime";
 import Time "mo:core/Time";
 import Text "mo:core/Text";
 import Order "mo:core/Order";
 import Array "mo:core/Array";
+import Iter "mo:core/Iter";
 import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
 import Stripe "stripe/stripe";
@@ -71,6 +71,13 @@ actor {
     videoUrl : Text;
   };
 
+  public type ContactInquiry = {
+    name : Text;
+    email : Text;
+    message : Text;
+    timestamp : Time.Time;
+  };
+
   // State
   var nextClassId = 1;
   var nextSessionId = 1;
@@ -82,6 +89,7 @@ actor {
   let sessions = Map.empty<SessionId, Session>();
   let bookings = Map.empty<Nat, Booking>();
   let videoLessons = Map.empty<VideoId, VideoLesson>();
+  let contactInquiries = Map.empty<Time.Time, ContactInquiry>();
 
   // User Profile Management
   public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
@@ -105,6 +113,13 @@ actor {
     userProfiles.add(caller, profile);
   };
 
+  public query ({ caller }) func getAllUsers() : async [(Principal, UserProfile)] {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can view all users");
+    };
+    userProfiles.toArray();
+  };
+
   // Dance Class Management
   public shared ({ caller }) func createDanceClass(newClass : DanceClass) : async () {
     if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
@@ -119,20 +134,14 @@ actor {
   };
 
   public query func getAllDanceClasses() : async [DanceClass] {
-    let classArray = danceClasses.values().toArray();
-    classArray.sort();
-  };
-
-  module DanceClass {
-    public func compare(class1 : DanceClass, class2 : DanceClass) : Order.Order {
-      Text.compare(class1.title, class2.title);
-    };
+    // Public access - anyone including guests can browse classes
+    danceClasses.values().toArray();
   };
 
   // Session Management
   public shared ({ caller }) func createSession(newSession : Session) : async () {
     if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
-      Runtime.trap("Unauthorized: Only instructors/admins can create sessions");
+      Runtime.trap("Unauthorized: Only admins can create sessions");
     };
 
     let sessionId = nextSessionId;
@@ -143,8 +152,23 @@ actor {
   };
 
   public query func getSessionsForClass(classId : ClassId) : async [Session] {
+    // Public access - anyone including guests can browse sessions
     let sessionArray = sessions.values().toArray();
     sessionArray.filter(func(session : Session) : Bool { session.classId == classId });
+  };
+
+  public query ({ caller }) func getSession(sessionId : SessionId) : async ?Session {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can view session details");
+    };
+    sessions.get(sessionId);
+  };
+
+  public query ({ caller }) func getDanceClass(classId : ClassId) : async ?DanceClass {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can view class details");
+    };
+    danceClasses.get(classId);
   };
 
   // Booking Management
@@ -184,7 +208,7 @@ actor {
   // Video Library Management
   public shared ({ caller }) func uploadVideoLesson(newLesson : VideoLesson) : async () {
     if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
-      Runtime.trap("Unauthorized: Only instructors/admins can upload video lessons");
+      Runtime.trap("Unauthorized: Only admins can upload video lessons");
     };
 
     let videoId = nextVideoLessonId;
@@ -195,6 +219,7 @@ actor {
   };
 
   public query func getAllVideoLessons() : async [VideoLesson] {
+    // Public access - anyone including guests can browse video lessons
     videoLessons.values().toArray();
   };
 
@@ -202,6 +227,7 @@ actor {
   var stripeConfiguration : ?Stripe.StripeConfiguration = null;
 
   public query func isStripeConfigured() : async Bool {
+    // Public access - anyone can check if Stripe is configured
     stripeConfiguration != null;
   };
 
@@ -219,7 +245,10 @@ actor {
     };
   };
 
-  public func getStripeSessionStatus(sessionId : Text) : async Stripe.StripeSessionStatus {
+  public shared ({ caller }) func getStripeSessionStatus(sessionId : Text) : async Stripe.StripeSessionStatus {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can check payment status");
+    };
     await Stripe.getSessionStatus(getStripeConfiguration(), sessionId, transform);
   };
 
@@ -231,6 +260,19 @@ actor {
   };
 
   public query func transform(input : OutCall.TransformationInput) : async OutCall.TransformationOutput {
+    // No authorization check - this is a system callback for HTTP outcalls
     OutCall.transform(input);
+  };
+
+  // Contact Inquiry Management
+  public shared ({ caller }) func submitContactInquiry(inquiry : ContactInquiry) : async () {
+    contactInquiries.add(inquiry.timestamp, inquiry);
+  };
+
+  public query ({ caller }) func getAllContactInquiries() : async [ContactInquiry] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can view contact inquiries");
+    };
+    contactInquiries.values().toArray();
   };
 };

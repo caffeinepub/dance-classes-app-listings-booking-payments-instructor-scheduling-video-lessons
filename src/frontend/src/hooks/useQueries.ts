@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
-import type { DanceClass, Session, Booking, VideoLesson, ClassId, SessionId, VideoId, ShoppingItem, StripeConfiguration, UserRole } from '../backend';
+import type { DanceClass, Session, Booking, VideoLesson, ClassId, SessionId, VideoId, ShoppingItem, StripeConfiguration, UserRole, UserProfile, ContactInquiry } from '../backend';
 import { Principal } from '@dfinity/principal';
 
 // Dance Classes
@@ -32,6 +32,19 @@ export function useCreateDanceClass() {
   });
 }
 
+export function useGetDanceClass(classId: ClassId | undefined) {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<DanceClass | null>({
+    queryKey: ['danceClass', classId?.toString()],
+    queryFn: async () => {
+      if (!actor || classId === undefined) return null;
+      return actor.getDanceClass(classId);
+    },
+    enabled: !!actor && !isFetching && classId !== undefined,
+  });
+}
+
 // Sessions
 export function useGetSessionsForClass(classId: ClassId) {
   const { actor, isFetching } = useActor();
@@ -43,6 +56,19 @@ export function useGetSessionsForClass(classId: ClassId) {
       return actor.getSessionsForClass(classId);
     },
     enabled: !!actor && !isFetching && classId !== undefined,
+  });
+}
+
+export function useGetSession(sessionId: SessionId | undefined) {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<Session | null>({
+    queryKey: ['session', sessionId?.toString()],
+    queryFn: async () => {
+      if (!actor || sessionId === undefined) return null;
+      return actor.getSession(sessionId);
+    },
+    enabled: !!actor && !isFetching && sessionId !== undefined,
   });
 }
 
@@ -164,5 +190,48 @@ export function useAssignCallerUserRole() {
       queryClient.invalidateQueries({ queryKey: ['callerRole'] });
       queryClient.invalidateQueries({ queryKey: ['currentUserProfile'] });
     },
+  });
+}
+
+// User Management
+export function useGetAllUsers() {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<Array<[Principal, UserProfile]>>({
+    queryKey: ['allUsers'],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.getAllUsers();
+    },
+    enabled: !!actor && !isFetching,
+  });
+}
+
+// Contact Inquiries
+export function useSubmitContactInquiry() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (inquiry: ContactInquiry) => {
+      if (!actor) throw new Error('Actor not available');
+      return actor.submitContactInquiry(inquiry);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['contactInquiries'] });
+    },
+  });
+}
+
+export function useGetAllContactInquiries() {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<ContactInquiry[]>({
+    queryKey: ['contactInquiries'],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.getAllContactInquiries();
+    },
+    enabled: !!actor && !isFetching,
   });
 }

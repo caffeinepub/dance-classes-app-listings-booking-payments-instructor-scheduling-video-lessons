@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Search, Clock, DollarSign } from 'lucide-react';
+import { CLASS_LEVELS } from '../../constants/classLevels';
+import { DANCE_STYLES } from '../../constants/danceStyles';
 
 export default function CatalogPage() {
   const navigate = useNavigate();
@@ -14,16 +16,6 @@ export default function CatalogPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [styleFilter, setStyleFilter] = useState<string>('all');
   const [levelFilter, setLevelFilter] = useState<string>('all');
-
-  const styles = useMemo(() => {
-    const uniqueStyles = new Set(classes.map((c) => c.style));
-    return Array.from(uniqueStyles);
-  }, [classes]);
-
-  const levels = useMemo(() => {
-    const uniqueLevels = new Set(classes.map((c) => c.level));
-    return Array.from(uniqueLevels);
-  }, [classes]);
 
   const filteredClasses = useMemo(() => {
     return classes.filter((cls) => {
@@ -76,7 +68,7 @@ export default function CatalogPage() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Styles</SelectItem>
-                {styles.map((style) => (
+                {DANCE_STYLES.map((style) => (
                   <SelectItem key={style} value={style}>
                     {style}
                   </SelectItem>
@@ -89,7 +81,7 @@ export default function CatalogPage() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Levels</SelectItem>
-                {levels.map((level) => (
+                {CLASS_LEVELS.map((level) => (
                   <SelectItem key={level} value={level}>
                     {level}
                   </SelectItem>

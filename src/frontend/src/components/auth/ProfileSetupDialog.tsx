@@ -8,7 +8,11 @@ import { Button } from '@/components/ui/button';
 import type { UserProfile } from '../../backend';
 import { toast } from 'sonner';
 
-export default function ProfileSetupDialog() {
+interface ProfileSetupDialogProps {
+  onComplete?: () => void;
+}
+
+export default function ProfileSetupDialog({ onComplete }: ProfileSetupDialogProps) {
   const { actor } = useActor();
   const queryClient = useQueryClient();
   const [name, setName] = useState('');
@@ -21,7 +25,11 @@ export default function ProfileSetupDialog() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['currentUserProfile'] });
-      toast.success('Profile created successfully!');
+      if (onComplete) {
+        onComplete();
+      } else {
+        toast.success('Profile created successfully!');
+      }
     },
     onError: (error) => {
       toast.error('Failed to create profile: ' + error.message);

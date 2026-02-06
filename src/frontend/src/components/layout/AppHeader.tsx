@@ -3,7 +3,7 @@ import { useInternetIdentity } from '../../hooks/useInternetIdentity';
 import { useGetCallerUserProfile } from '../../hooks/useCurrentUserProfile';
 import { useIsCallerAdmin } from '../../hooks/useCallerRole';
 import { Button } from '@/components/ui/button';
-import { Menu, X, User, Calendar, Video, Settings } from 'lucide-react';
+import { Menu, X, User, Calendar, Video, Settings, UserPlus, Users, MessageSquare, Quote, FileText } from 'lucide-react';
 import { useState } from 'react';
 
 export default function AppHeader() {
@@ -53,6 +53,20 @@ export default function AppHeader() {
             <Button variant="ghost" asChild>
               <Link to="/lessons">Video Lessons</Link>
             </Button>
+            <Button variant="ghost" asChild>
+              <Link to="/biodata">Biodata</Link>
+            </Button>
+            <Button variant="ghost" asChild>
+              <Link to="/testimonials">Testimonials</Link>
+            </Button>
+            {!isAuthenticated && (
+              <Button variant="ghost" asChild>
+                <Link to="/register">
+                  <UserPlus className="h-4 w-4 mr-2" />
+                  Register
+                </Link>
+              </Button>
+            )}
             {isAuthenticated && (
               <Button variant="ghost" asChild>
                 <Link to="/my-bookings">
@@ -66,6 +80,22 @@ export default function AppHeader() {
                 <Link to="/instructor/dashboard">
                   <Settings className="h-4 w-4 mr-2" />
                   Dashboard
+                </Link>
+              </Button>
+            )}
+            {isAdmin && (
+              <Button variant="ghost" asChild>
+                <Link to="/admin/registrations">
+                  <Users className="h-4 w-4 mr-2" />
+                  Registrations
+                </Link>
+              </Button>
+            )}
+            {isAdmin && (
+              <Button variant="ghost" asChild>
+                <Link to="/admin/inquiries">
+                  <MessageSquare className="h-4 w-4 mr-2" />
+                  Inquiries
                 </Link>
               </Button>
             )}
@@ -111,6 +141,26 @@ export default function AppHeader() {
                 Video Lessons
               </Link>
             </Button>
+            <Button variant="ghost" asChild className="justify-start">
+              <Link to="/biodata" onClick={() => setMobileMenuOpen(false)}>
+                <FileText className="h-4 w-4 mr-2" />
+                Biodata
+              </Link>
+            </Button>
+            <Button variant="ghost" asChild className="justify-start">
+              <Link to="/testimonials" onClick={() => setMobileMenuOpen(false)}>
+                <Quote className="h-4 w-4 mr-2" />
+                Testimonials
+              </Link>
+            </Button>
+            {!isAuthenticated && (
+              <Button variant="ghost" asChild className="justify-start">
+                <Link to="/register" onClick={() => setMobileMenuOpen(false)}>
+                  <UserPlus className="h-4 w-4 mr-2" />
+                  Register
+                </Link>
+              </Button>
+            )}
             {isAuthenticated && (
               <Button variant="ghost" asChild className="justify-start">
                 <Link to="/my-bookings" onClick={() => setMobileMenuOpen(false)}>
@@ -124,6 +174,22 @@ export default function AppHeader() {
                 <Link to="/instructor/dashboard" onClick={() => setMobileMenuOpen(false)}>
                   <Settings className="h-4 w-4 mr-2" />
                   Dashboard
+                </Link>
+              </Button>
+            )}
+            {isAdmin && (
+              <Button variant="ghost" asChild className="justify-start">
+                <Link to="/admin/registrations" onClick={() => setMobileMenuOpen(false)}>
+                  <Users className="h-4 w-4 mr-2" />
+                  Registrations
+                </Link>
+              </Button>
+            )}
+            {isAdmin && (
+              <Button variant="ghost" asChild className="justify-start">
+                <Link to="/admin/inquiries" onClick={() => setMobileMenuOpen(false)}>
+                  <MessageSquare className="h-4 w-4 mr-2" />
+                  Inquiries
                 </Link>
               </Button>
             )}

@@ -1,333 +1,62 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Dance Classes App Frontend: Auth, Catalog, Booking + Stripe, Instructor Scheduling, Video Lessons, Theming",
+  "title": "Add public Biodata page and navigation links",
   "requirements": [
     {
-      "id": "REQ-1",
-      "summary": "Add Internet Identity sign-in UX, profile setup, role-aware navigation, and role-guarded screens for student/instructor/admin.",
+      "id": "REQ-53",
+      "summary": "Create a new public /biodata route that renders an English page heading \"Biodata\".",
       "acceptanceCriteria": [
-        "Users can sign in/out with Internet Identity from the frontend.",
-        "Only instructors/admins can access instructor management screens.",
-        "Admins can access role management UI to grant/revoke roles."
+        "Navigating to /biodata renders a public page without requiring authentication.",
+        "The page displays a visible heading with the exact text \"Biodata\"."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/pages/biodata/BiodataPage.tsx",
           "operation": "create",
-          "description": "Create the application shell and route layout that integrates authentication state and role-aware navigation (e.g., show Login/Logout, My Bookings, Instructor Dashboard, Admin). Use the authorization component patterns for Internet Identity + role checks. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "create",
-          "description": "Create global styles entrypoint (imported by main.tsx) and define theme tokens used across the app (paired with Tailwind CSS variables). Ensure typography and base spacing support the design system."
-        },
-        {
-          "path": "frontend/src/components/auth/LoginButton.tsx",
-          "operation": "create",
-          "description": "Implement a Login/Logout button using the authorization component’s frontend guidance (useInternetIdentity + clear cached queries on logout). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/auth/ProfileSetupDialog.tsx",
-          "operation": "create",
-          "description": "Implement first-login profile setup (ask for name; optionally email if present in backend type) using getCallerUserProfile/saveCallerUserProfile with anti-flash loading logic described by the authorization component. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useCurrentUserProfile.ts",
-          "operation": "create",
-          "description": "Add a React Query hook to load getCallerUserProfile and expose isLoading/isFetched states aligned with actor availability (to prevent profile modal flash). Use the authorization component guidance. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useCallerRole.ts",
-          "operation": "create",
-          "description": "Add a React Query hook to read getCallerUserRole/isCallerAdmin for role-based UI decisions, and standardize handling of authorization failures from backend traps. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/auth/RoleGate.tsx",
-          "operation": "create",
-          "description": "Create a simple wrapper component to protect instructor/admin screens based on getCallerUserRole (show an Access Denied screen when unauthorized). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/auth/AccessDeniedScreen.tsx",
-          "operation": "create",
-          "description": "Create an access denied screen consistent with the app theme, for unauthorized navigation attempts per authorization component guidance. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/admin/AdminRoleManagementPage.tsx",
-          "operation": "create",
-          "description": "Create an admin-only screen to grant/revoke roles using assignCallerUserRole and to display current caller role status. Use the authorization component’s role-based UI guidance. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/main.tsx",
-          "operation": "modify",
-          "description": "Ensure the root composition supports the new App router/layout and keeps QueryClient + InternetIdentityProvider usage aligned with auth-driven cache clearing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Build class catalog browsing with search/filters and a class details view; require sign-in only for booking actions.",
-      "acceptanceCriteria": [
-        "Frontend includes a catalog page with search and basic filters (style, level) and a class detail view.",
-        "Anonymous users can browse the catalog; booking requires sign-in."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/catalog/CatalogPage.tsx",
-          "operation": "create",
-          "description": "Create the class catalog page that loads getAllDanceClasses, supports search and basic filters (style/level), and presents consistent cards/buttons. Include the generated hero branding area on this page."
-        },
-        {
-          "path": "frontend/src/pages/catalog/ClassDetailPage.tsx",
-          "operation": "create",
-          "description": "Create a class detail view that shows class information and upcoming sessions (via getSessionsForClass) and exposes booking CTAs that are gated behind sign-in."
-        },
-        {
-          "path": "frontend/src/hooks/useDanceClasses.ts",
-          "operation": "create",
-          "description": "Add React Query hooks for getAllDanceClasses and client-side filtering helpers for style/level/search."
-        },
-        {
-          "path": "frontend/src/components/layout/AppHeader.tsx",
-          "operation": "create",
-          "description": "Create a header used across pages including brand mark, navigation links, and login/logout entry point. Reference static generated image assets directly. Use the authorization component patterns for login state display. Verify the component's usage instructions before implementing."
+          "description": "Create the BiodataPage component that renders a public page with a visible H1 heading text exactly \"Biodata\"."
         },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Wire catalog and class detail pages into the router and navigation; ensure anonymous users can access catalog routes while booking actions are gated."
+          "description": "Register and wire the new /biodata route into the TanStack Router route tree so it is publicly accessible (no RoleGate/auth requirement)."
         }
       ]
     },
     {
-      "id": "REQ-3",
-      "summary": "Provide instructor/admin schedule management UI for creating and managing sessions; show upcoming sessions on class details.",
+      "id": "REQ-54",
+      "summary": "Render Professional Summary and Core Competencies sections on /biodata using the provided text and bullets.",
       "acceptanceCriteria": [
-        "Frontend provides an instructor dashboard to manage classes and sessions.",
-        "Students can view upcoming sessions for a class on the class detail page."
+        "The page shows a section title \"Professional Summary\" followed by the provided summary text (English).",
+        "The page shows a section title \"Core Competencies\" followed by four bullet points corresponding to: Classical Mastery, Versatile Instruction, Global Teaching, and Choreography.",
+        "No placeholder or gallery-related content appears on the /biodata page."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/instructor/InstructorDashboardPage.tsx",
-          "operation": "create",
-          "description": "Create an instructor/admin-only dashboard for managing classes and their scheduled sessions, including create/edit/delete flows using backend session/class capabilities; wrap with RoleGate to prevent access by students/guests. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/sessions/SessionEditorDialog.tsx",
-          "operation": "create",
-          "description": "Create a session editor UI for date/time, capacity, location/online link, associated class selection, and validation; designed for use in instructor dashboard."
-        },
-        {
-          "path": "frontend/src/hooks/useSessions.ts",
-          "operation": "create",
-          "description": "Add React Query hooks for getSessionsForClass and mutations to createSession (and related session management capabilities exposed by the backend interface), including cache invalidation for class detail and instructor dashboard."
-        },
-        {
-          "path": "frontend/src/pages/catalog/ClassDetailPage.tsx",
+          "path": "frontend/src/pages/biodata/BiodataPage.tsx",
           "operation": "modify",
-          "description": "Enhance class detail view to list upcoming sessions with capacity-related fields and clear UX for selecting a session to book."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Register the Instructor Dashboard route and ensure it is only reachable/visible for instructor/admin roles (via RoleGate). Verify the component's usage instructions before implementing."
+          "description": "Add two content sections: (1) \"Professional Summary\" with the provided paragraph, and (2) \"Core Competencies\" with a bulleted list of the four provided competency items; ensure no placeholder/gallery content is rendered."
         }
       ]
     },
     {
-      "id": "REQ-4",
-      "summary": "Implement student booking actions and booking visibility: My Bookings for students and rosters for instructors.",
+      "id": "REQ-55",
+      "summary": "Add header (desktop + mobile) and footer navigation links to /biodata labeled \"Biodata\".",
       "acceptanceCriteria": [
-        "Frontend allows a signed-in student to book a session and view their bookings in a ‘My Bookings’ area.",
-        "Instructors can see a roster of bookings for their sessions."
+        "The header desktop navigation includes a link labeled \"Biodata\" that navigates to /biodata.",
+        "The header mobile navigation includes a link labeled \"Biodata\" that navigates to /biodata and closes the mobile menu on click.",
+        "The footer includes a link labeled \"Biodata\" that navigates to /biodata."
       ],
       "file_operations": [
-        {
-          "path": "frontend/src/hooks/useBookings.ts",
-          "operation": "create",
-          "description": "Add React Query hooks for getUserBookings and mutation for bookSession, including cache invalidation of session lists and booking lists after booking attempts."
-        },
-        {
-          "path": "frontend/src/pages/bookings/MyBookingsPage.tsx",
-          "operation": "create",
-          "description": "Create a signed-in student page that lists bookings (status-aware) and provides actions relevant to status (e.g., Pay for pending payment)."
-        },
-        {
-          "path": "frontend/src/components/bookings/BookingButton.tsx",
-          "operation": "create",
-          "description": "Create a booking CTA component used on class detail session rows; if not signed in, prompt user to sign in (Internet Identity) before proceeding. Use authorization component patterns. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/instructor/SessionRosterPanel.tsx",
-          "operation": "create",
-          "description": "Create an instructor-facing roster view inside the instructor dashboard that shows bookings for selected sessions (using available backend booking data) and status indicators."
-        },
-        {
-          "path": "frontend/src/pages/instructor/InstructorDashboardPage.tsx",
-          "operation": "modify",
-          "description": "Wire in roster viewing for sessions managed by the instructor/admin and ensure the page remains role-guarded."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Register and link the ‘My Bookings’ route from the header/navigation and ensure it requires authentication (guard at UI level)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Add Stripe Checkout payment initiation for pending bookings, plus payment success/failure routes to reflect payment confirmation state.",
-      "acceptanceCriteria": [
-        "Frontend provides a ‘Pay’ action for pending bookings that starts a Stripe Checkout flow.",
-        "After a successful payment, the booking becomes confirmed and the session capacity updates accordingly.",
-        "If payment is not completed, the booking remains pending_payment."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/admin/PaymentSetupPage.tsx",
-          "operation": "create",
-          "description": "Create an admin-only payment setup UI using isStripeConfigured/setStripeConfiguration and only show configuration UI when not configured. Use the stripe component’s frontend guidance. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useStripeCheckout.ts",
-          "operation": "create",
-          "description": "Implement a hook to call createCheckoutSession, parse returned JSON, validate a non-empty session url, and return the session data for redirect. Use the stripe component’s frontend guidance. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/payments/PayForBookingButton.tsx",
-          "operation": "create",
-          "description": "Add a ‘Pay’ action for pending bookings that creates a Stripe Checkout session and redirects using window.location.href (never router navigation). Use the stripe component’s frontend guidance. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/payments/PaymentSuccessPage.tsx",
-          "operation": "create",
-          "description": "Create a payment success page that checks Stripe session status using getStripeSessionStatus and prompts the user back to My Bookings; refresh relevant queries to reflect updated status. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/payments/PaymentFailurePage.tsx",
-          "operation": "create",
-          "description": "Create a payment failure page that shows a clear message and routes the user back to My Bookings with the booking still pending/cancellable. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/bookings/MyBookingsPage.tsx",
-          "operation": "modify",
-          "description": "Integrate PayForBookingButton for bookings in pending_payment status and display status lifecycle clearly."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Register /payment-success and /payment-failure routes and ensure they are reachable post-Stripe redirect. Use the stripe component’s requirement to route these specific paths. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Create video lessons library browsing + playback and instructor/admin management UI for lesson entries.",
-      "acceptanceCriteria": [
-        "Frontend includes a video lessons page with list + filtering/search and a lesson detail page with an embedded player for the lesson video URL.",
-        "Instructors/admins have a UI to create/edit/delete lesson entries."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/lessons/VideoLessonsPage.tsx",
-          "operation": "create",
-          "description": "Create a video lessons library page listing lessons from getAllVideoLessons with search/filter UI (e.g., style/level tags) and consistent card layout."
-        },
-        {
-          "path": "frontend/src/pages/lessons/VideoLessonDetailPage.tsx",
-          "operation": "create",
-          "description": "Create a lesson detail page that embeds the lesson video URL in a player area and displays metadata."
-        },
-        {
-          "path": "frontend/src/pages/instructor/ManageLessonsPage.tsx",
-          "operation": "create",
-          "description": "Create an instructor/admin-only page to create/edit/delete lessons using uploadVideoLesson and related backend capabilities; protect with RoleGate. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useVideoLessons.ts",
-          "operation": "create",
-          "description": "Add React Query hooks for getAllVideoLessons and lesson mutations, with cache invalidation for lessons list and details."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Register routes for video lessons list, lesson detail, and instructor/admin manage-lessons screens; wire navigation in the header where appropriate, and guard management routes via RoleGate. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "summary": "Apply a cohesive dance-brand design system across all primary pages with a warm, accessible palette (not primarily blue/purple).",
-      "acceptanceCriteria": [
-        "All primary pages share a consistent design system (buttons, inputs, cards, headings).",
-        "Theme uses a distinct palette that is not primarily blue/purple and remains accessible (adequate contrast)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/tailwind.config.js",
-          "operation": "modify",
-          "description": "Adjust Tailwind theme tokens (via CSS variables) to support a warm dance-brand palette (e.g., coral/orange/gold + neutral ink) and consistent radius/shadows, avoiding blue/purple as primary."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Define/adjust CSS variable values for background/foreground/primary/secondary/accent/destructive and typography defaults to match the dance brand theme with accessible contrast."
-        },
         {
           "path": "frontend/src/components/layout/AppHeader.tsx",
           "operation": "modify",
-          "description": "Align header styling (spacing, typography, buttons) with the design system and ensure consistent appearance across all routes."
+          "description": "Add a desktop navigation Link labeled \"Biodata\" pointing to /biodata, and add a mobile navigation Link labeled \"Biodata\" pointing to /biodata that closes the mobile menu on click (setMobileMenuOpen(false))."
         },
         {
-          "path": "frontend/src/pages/catalog/CatalogPage.tsx",
+          "path": "frontend/src/components/layout/AppFooter.tsx",
           "operation": "modify",
-          "description": "Ensure catalog cards, filters, and hero section use consistent components/styles and adhere to the warm theme."
-        },
-        {
-          "path": "frontend/src/pages/bookings/MyBookingsPage.tsx",
-          "operation": "modify",
-          "description": "Apply consistent design system for booking list, status chips, and actions."
-        },
-        {
-          "path": "frontend/src/pages/instructor/InstructorDashboardPage.tsx",
-          "operation": "modify",
-          "description": "Apply consistent design system for dashboard layouts, tables/panels, and dialogs."
-        },
-        {
-          "path": "frontend/src/pages/lessons/VideoLessonsPage.tsx",
-          "operation": "modify",
-          "description": "Apply consistent design system for lessons listing, filters, and cards."
-        }
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "summary": "Add generated branding images as static frontend assets and incorporate them into the header and catalog/landing area.",
-      "acceptanceCriteria": [
-        "Generated images exist in frontend/public/assets/generated with the specified filenames.",
-        "Frontend references these images directly as static assets (not fetched from the backend).",
-        "At least the app header and landing/catalog area visually incorporate the generated branding assets."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/dance-logo.dim_512x512.png",
-          "operation": "create",
-          "description": "Add the generated static image asset file at frontend/public/assets/generated/dance-logo.dim_512x512.png so it can be referenced directly by the UI."
-        },
-        {
-          "path": "frontend/public/assets/generated/dance-hero.dim_1600x600.png",
-          "operation": "create",
-          "description": "Add the generated static image asset file at frontend/public/assets/generated/dance-hero.dim_1600x600.png so it can be referenced directly by the UI."
-        },
-        {
-          "path": "frontend/src/components/layout/AppHeader.tsx",
-          "operation": "modify",
-          "description": "Reference frontend/public/assets/generated/dance-logo.dim_512x512.png in the header branding area (static asset usage, not fetched)."
-        },
-        {
-          "path": "frontend/src/pages/catalog/CatalogPage.tsx",
-          "operation": "modify",
-          "description": "Reference frontend/public/assets/generated/dance-hero.dim_1600x600.png in the catalog landing/hero section and ensure it blends with the global theme."
+          "description": "Add a footer site link labeled \"Biodata\" pointing to /biodata alongside the existing public links."
         }
       ]
     }

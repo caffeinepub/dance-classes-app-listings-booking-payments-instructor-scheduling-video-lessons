@@ -7,17 +7,13 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Search, Clock, Video } from 'lucide-react';
+import { DANCE_STYLES } from '../../constants/danceStyles';
 
 export default function VideoLessonsPage() {
   const navigate = useNavigate();
   const { data: lessons = [], isLoading } = useGetAllVideoLessons();
   const [searchQuery, setSearchQuery] = useState('');
   const [styleFilter, setStyleFilter] = useState<string>('all');
-
-  const styles = useMemo(() => {
-    const uniqueStyles = new Set(lessons.map((l) => l.style));
-    return Array.from(uniqueStyles);
-  }, [lessons]);
 
   const filteredLessons = useMemo(() => {
     return lessons.filter((lesson) => {
@@ -53,7 +49,7 @@ export default function VideoLessonsPage() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Styles</SelectItem>
-              {styles.map((style) => (
+              {DANCE_STYLES.map((style) => (
                 <SelectItem key={style} value={style}>
                   {style}
                 </SelectItem>

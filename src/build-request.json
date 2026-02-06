@@ -1,172 +1,83 @@
 {
   "kind": "build_request",
-  "title": "Dance Classes App: Listings, Booking + Payments, Instructor Scheduling, Video Lessons",
+  "title": "Add a Biodata page and place the professional summary content under it",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Implement Internet Identity sign-in and a user profile record in the backend, including role-based access control for at least: student, instructor, and admin.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "All"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Users can sign in/out with Internet Identity from the frontend.",
-        "Backend persists a user profile keyed by Principal with role information.",
-        "Only instructors/admins can access instructor management screens and related backend methods.",
-        "There is a defined bootstrap mechanism for the first admin (e.g., first registered user becomes admin) and a way for admins to grant/revoke instructor/admin roles."
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Create a dance class catalog feature: persist classes in the backend and provide a frontend to browse, search, and view class details.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "All"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend supports CRUD for class definitions (at minimum: title, description, dance style, level, duration, price, cover image URL (optional)).",
-        "Frontend includes a catalog page with search and basic filters (e.g., style, level) and a class detail view.",
-        "Anonymous users can browse the catalog; booking requires sign-in."
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Implement instructor schedule management: instructors/admins can create and manage scheduled class sessions (date/time, capacity, location/online link) associated with a class.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "All"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend supports creating/updating/deleting class sessions and listing sessions for a class and/or instructor.",
-        "Each session includes capacity and tracks remaining spots based on bookings.",
-        "Frontend provides an instructor dashboard to manage classes and sessions.",
-        "Students can view upcoming sessions for a class on the class detail page."
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Implement class booking flow: students can book a specific scheduled session, with booking records persisted in the backend and visible to students and instructors.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "All"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend supports creating a booking for a signed-in user for a specific session, preventing double-booking and preventing bookings when capacity is full.",
-        "Bookings have a status lifecycle (at minimum: pending_payment, confirmed, cancelled).",
-        "Frontend allows a signed-in student to book a session and view their bookings in a ‘My Bookings’ area.",
-        "Instructors can see a roster of bookings for their sessions."
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Add payments for class bookings using Stripe Checkout: initiate payment for a pending booking and update booking status upon successful payment confirmation.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "All"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Frontend provides a ‘Pay’ action for pending bookings that starts a Stripe Checkout flow.",
-        "Backend never exposes Stripe secret keys to the frontend; Stripe keys are configured via environment/secrets appropriate for the project.",
-        "After a successful payment, the booking becomes confirmed and the session capacity updates accordingly.",
-        "If payment is not completed, the booking remains pending_payment (or is eventually cancellable by the user)."
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "text": "Provide an on-demand video lessons library: instructors/admins can create/manage lesson entries and students can browse and play lessons from the app.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "All"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend persists lesson metadata (at minimum: title, description, dance style/level tags, video URL, optional thumbnail URL).",
-        "Frontend includes a video lessons page with list + filtering/search and a lesson detail page with an embedded player for the lesson video URL.",
-        "Instructors/admins have a UI to create/edit/delete lesson entries."
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "text": "Apply a coherent visual theme across the app (colors, typography, spacing, components) suitable for a dance brand, avoiding blue/purple as primary colors.",
+      "id": "REQ-53",
+      "text": "Create a new public-facing Biodata page route at /biodata and render an English page heading \"Biodata\".",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-user"
         ],
         "quotes": [
-          "All"
+          "Put it under biodata"
         ]
       },
       "acceptanceCriteria": [
-        "All primary pages (catalog, class detail, booking flow, instructor dashboard, video lessons) share a consistent design system (buttons, inputs, cards, headings).",
-        "Theme uses a distinct palette that is not primarily blue/purple and remains accessible (adequate contrast)."
+        "Navigating to /biodata renders a public page without requiring authentication.",
+        "The page displays a visible heading with the exact text \"Biodata\"."
       ]
     },
     {
-      "id": "REQ-8",
-      "text": "Add generated static image assets to the frontend and use them in the UI (served from frontend/public/assets/generated).",
+      "id": "REQ-54",
+      "text": "On the /biodata page, display the provided content as two sections: (1) \"Professional Summary\" with the summary paragraph, and (2) \"Core Competencies\" as a bulleted list with the four competency items.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-user"
         ],
         "quotes": [
-          "All"
+          "Professional Summary\nAccomplished Bharatanatyam Artist with 25 years of dedicated training and performance excellence. A passionate educator with extensive experience conducting classical and contemporary dance classes across India and international locations. Expertise extends to Bollywood, Semi-Classical, and Folk dance, blending traditional discipline with modern creative expression to inspire students of all ages.\nCore Competencies\nClassical Mastery: Extensive knowledge of Bharatanatyam theory and practice.\nVersatile Instruction: Proficiency in Bollywood, Semi-Classical, and Indian Folk traditions.\nGlobal Teaching: Proven track record of managing dance workshops and regular classes both in India and abroad.\nChoreography: Expertise in composing original pieces for stage productions and cultural events."
         ]
       },
       "acceptanceCriteria": [
-        "Generated images exist in frontend/public/assets/generated with the specified filenames.",
-        "Frontend references these images directly as static assets (not fetched from the backend).",
-        "At least the app header and landing/catalog area visually incorporate the generated branding assets."
+        "The page shows a section title \"Professional Summary\" followed by the provided summary text (English).",
+        "The page shows a section title \"Core Competencies\" followed by four bullet points corresponding to: Classical Mastery, Versatile Instruction, Global Teaching, and Choreography.",
+        "No placeholder or gallery-related content appears on the /biodata page."
+      ]
+    },
+    {
+      "id": "REQ-55",
+      "text": "Add visible navigation entry points to the /biodata page from (a) the main site navigation (desktop and mobile header) and (b) the footer site links, using English link text \"Biodata\".",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user"
+        ],
+        "quotes": [
+          "Put it under biodata"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The header desktop navigation includes a link labeled \"Biodata\" that navigates to /biodata.",
+        "The header mobile navigation includes a link labeled \"Biodata\" that navigates to /biodata and closes the mobile menu on click.",
+        "The footer includes a link labeled \"Biodata\" that navigates to /biodata."
       ]
     }
   ],
   "constraints": [
-    "Use English for all user-facing UI text.",
-    "Backend must remain a single Motoko actor in backend/main.mo; only add backend/migration.mo if an upgrade-safe state migration is required.",
-    "Do not edit files under frontend/src/components/ui or other immutable paths; compose those components instead."
+    "Frontend paths listed as immutable must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
+    "Do not add any backend changes for this request (this is static, public marketing content)."
   ],
   "nonGoals": [
-    "Native mobile app build (iOS/Android).",
-    "Real-time chat or live-streaming video classes.",
-    "External database integration (e.g., Postgres/Mongo).",
-    "Third-party auth providers other than Internet Identity."
+    "Do not re-add or reference the removed Gallery route or Gallery navigation.",
+    "Do not implement admin/instructor editing of biodata content in this change.",
+    "Do not change authentication/registration behavior."
   ],
   "imageRequirements": {
-    "required": [
-      "Dance studio brand logo mark, clean modern vector-style on transparent background (dance-logo.dim_512x512.png)",
-      "Warm energetic hero illustration showing silhouettes of dancers in motion, minimal background, wide banner composition (dance-hero.dim_1600x600.png)"
-    ],
+    "required": [],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

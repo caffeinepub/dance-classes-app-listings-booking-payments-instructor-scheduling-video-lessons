@@ -99,6 +99,12 @@ export interface StripeConfiguration {
     allowedCountries: Array<string>;
     secretKey: string;
 }
+export interface ContactInquiry {
+    name: string;
+    email: string;
+    message: string;
+    timestamp: Time;
+}
 export type ClassId = bigint;
 export interface UserProfile {
     name: string;
@@ -116,10 +122,14 @@ export interface backendInterface {
     createCheckoutSession(items: Array<ShoppingItem>, successUrl: string, cancelUrl: string): Promise<string>;
     createDanceClass(newClass: DanceClass): Promise<void>;
     createSession(newSession: Session): Promise<void>;
+    getAllContactInquiries(): Promise<Array<ContactInquiry>>;
     getAllDanceClasses(): Promise<Array<DanceClass>>;
+    getAllUsers(): Promise<Array<[Principal, UserProfile]>>;
     getAllVideoLessons(): Promise<Array<VideoLesson>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
+    getDanceClass(classId: ClassId): Promise<DanceClass | null>;
+    getSession(sessionId: SessionId): Promise<Session | null>;
     getSessionsForClass(classId: ClassId): Promise<Array<Session>>;
     getStripeSessionStatus(sessionId: string): Promise<StripeSessionStatus>;
     getUserBookings(): Promise<Array<Booking>>;
@@ -128,6 +138,7 @@ export interface backendInterface {
     isStripeConfigured(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     setStripeConfiguration(config: StripeConfiguration): Promise<void>;
+    submitContactInquiry(inquiry: ContactInquiry): Promise<void>;
     transform(input: TransformationInput): Promise<TransformationOutput>;
     uploadVideoLesson(newLesson: VideoLesson): Promise<void>;
 }

@@ -4,8 +4,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { VideoLesson } from '../../backend';
 import { toast } from 'sonner';
+import { DANCE_STYLES } from '../../constants/danceStyles';
 
 interface LessonEditorDialogProps {
   open: boolean;
@@ -22,6 +24,12 @@ export default function LessonEditorDialog({ open, onClose }: LessonEditorDialog
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!style) {
+      toast.error('Please select a style');
+      return;
+    }
+
     try {
       const newLesson: VideoLesson = {
         id: BigInt(0),
@@ -59,19 +67,24 @@ export default function LessonEditorDialog({ open, onClose }: LessonEditorDialog
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="e.g., Salsa Basic Steps"
+              placeholder="e.g., Bharatnatyam Basic Steps"
               required
             />
           </div>
           <div className="space-y-2">
             <Label htmlFor="style">Style *</Label>
-            <Input
-              id="style"
-              value={style}
-              onChange={(e) => setStyle(e.target.value)}
-              placeholder="e.g., Salsa"
-              required
-            />
+            <Select value={style} onValueChange={setStyle} required>
+              <SelectTrigger id="style">
+                <SelectValue placeholder="Select style" />
+              </SelectTrigger>
+              <SelectContent>
+                {DANCE_STYLES.map((styleOption) => (
+                  <SelectItem key={styleOption} value={styleOption}>
+                    {styleOption}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <div className="space-y-2">
             <Label htmlFor="instructor">Instructor *</Label>

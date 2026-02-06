@@ -1,83 +1,37 @@
 {
   "kind": "build_request",
-  "title": "Add a Biodata page and place the professional summary content under it",
+  "title": "Remove photo from the Biodata page",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-53",
-      "text": "Create a new public-facing Biodata page route at /biodata and render an English page heading \"Biodata\".",
+      "id": "REQ-56",
+      "text": "Remove any instructor photo/portrait rendering from the public-facing Biodata page route (/biodata) so that the page displays only the existing English heading and the two text sections (Professional Summary and Core Competencies), without showing any images.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user"
+          "msg-4"
         ],
         "quotes": [
-          "Put it under biodata"
+          "Remove photo"
         ]
       },
       "acceptanceCriteria": [
-        "Navigating to /biodata renders a public page without requiring authentication.",
-        "The page displays a visible heading with the exact text \"Biodata\"."
-      ]
-    },
-    {
-      "id": "REQ-54",
-      "text": "On the /biodata page, display the provided content as two sections: (1) \"Professional Summary\" with the summary paragraph, and (2) \"Core Competencies\" as a bulleted list with the four competency items.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-user"
-        ],
-        "quotes": [
-          "Professional Summary\nAccomplished Bharatanatyam Artist with 25 years of dedicated training and performance excellence. A passionate educator with extensive experience conducting classical and contemporary dance classes across India and international locations. Expertise extends to Bollywood, Semi-Classical, and Folk dance, blending traditional discipline with modern creative expression to inspire students of all ages.\nCore Competencies\nClassical Mastery: Extensive knowledge of Bharatanatyam theory and practice.\nVersatile Instruction: Proficiency in Bollywood, Semi-Classical, and Indian Folk traditions.\nGlobal Teaching: Proven track record of managing dance workshops and regular classes both in India and abroad.\nChoreography: Expertise in composing original pieces for stage productions and cultural events."
-        ]
-      },
-      "acceptanceCriteria": [
-        "The page shows a section title \"Professional Summary\" followed by the provided summary text (English).",
-        "The page shows a section title \"Core Competencies\" followed by four bullet points corresponding to: Classical Mastery, Versatile Instruction, Global Teaching, and Choreography.",
-        "No placeholder or gallery-related content appears on the /biodata page."
-      ]
-    },
-    {
-      "id": "REQ-55",
-      "text": "Add visible navigation entry points to the /biodata page from (a) the main site navigation (desktop and mobile header) and (b) the footer site links, using English link text \"Biodata\".",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-user"
-        ],
-        "quotes": [
-          "Put it under biodata"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The header desktop navigation includes a link labeled \"Biodata\" that navigates to /biodata.",
-        "The header mobile navigation includes a link labeled \"Biodata\" that navigates to /biodata and closes the mobile menu on click.",
-        "The footer includes a link labeled \"Biodata\" that navigates to /biodata."
+        "Visiting /biodata shows the \"Biodata\" heading and the two sections (\"Professional Summary\" and \"Core Competencies\") without rendering any <img> elements or portrait/avatar images on that page.",
+        "The footer contact section (including the existing circular portrait image and its alt text) is unchanged and still appears site-wide as before.",
+        "No broken image links or empty image placeholders appear on /biodata."
       ]
     }
   ],
   "constraints": [
-    "Frontend paths listed as immutable must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
-    "Do not add any backend changes for this request (this is static, public marketing content)."
+    "Do not modify any files under frontend/src/components/ui (read-only).",
+    "Do not change backend canister interfaces or state for this change."
   ],
   "nonGoals": [
-    "Do not re-add or reference the removed Gallery route or Gallery navigation.",
-    "Do not implement admin/instructor editing of biodata content in this change.",
-    "Do not change authentication/registration behavior."
+    "Do not remove or alter the footer contact photo in the site footer.",
+    "Do not change the Biodata text content, headings, or site navigation links beyond what is required to remove the photo."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

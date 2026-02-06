@@ -1,11 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Add a public Biodata page and move the professional summary content into it.
+**Goal:** Remove any instructor photo/portrait rendering from the public-facing Biodata page (/biodata) while keeping the rest of the site unchanged.
 
 **Planned changes:**
-- Create a new public route at `/biodata` with a visible page heading "Biodata".
-- On `/biodata`, render two sections: "Professional Summary" (provided paragraph) and "Core Competencies" (four bullet points).
-- Add navigation links labeled "Biodata" to `/biodata` in the header (desktop + mobile) and in the footer links.
+- Update the /biodata page to not render any instructor portrait/avatar or other images within the page content.
+- Ensure /biodata displays only the existing "Biodata" heading plus the two text sections: "Professional Summary" and "Core Competencies".
+- Verify the site-wide footer contact section (including its existing circular portrait image and alt text) remains unchanged.
 
-**User-visible outcome:** Visitors can navigate to a new "Biodata" page from the header or footer and read the professional summary and core competencies without logging in.
+**User-visible outcome:** Visiting /biodata shows the Biodata heading and the two text sections without any images, broken image links, or empty placeholders; the footer contact portrait still appears as before.

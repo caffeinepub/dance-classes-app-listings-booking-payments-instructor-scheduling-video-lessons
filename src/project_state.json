@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 43,
+  "projectStateVersion": 45,
   "summary": "Dance classes app/website including class listings, booking and payments, instructor schedule management, video lessons, marketing website content, plus an online registration system.",
   "architectural_notes": [
     "Include public-facing website/landing pages in addition to the authenticated app experience.",
@@ -9,7 +9,7 @@
     "Public-facing site should include a Biodata/About section to present the instructor’s professional summary and core competencies."
   ],
   "known_issues": [],
-  "isFixRequest": false,
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-implement-internet-identity-sign-in-and-a-user-profile-record-in-the-backend-including-role-based-access-control-for-at-least-student-instructor-and-admin",
@@ -579,6 +579,20 @@
       "id": "AR-28",
       "summary": "Add a “Biodata” section/page on the public site to display the instructor professional summary and core competencies text.",
       "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-29",
+      "summary": "Remove the photo from the Biodata section/page.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-30",
+      "summary": "Remove any instructor photo/portrait rendering from the public-facing Biodata page route (/biodata) so that the page displays only the existing English heading and the two text sections (Professional Summary and Core Competencies), without showing any images.",
+      "reqIds": [
+        "REQ-56"
+      ],
       "status": "pending"
     }
   ],

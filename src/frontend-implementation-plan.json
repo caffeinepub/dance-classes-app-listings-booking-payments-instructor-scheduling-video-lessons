@@ -1,62 +1,21 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add public Biodata page and navigation links",
+  "title": "Remove portrait rendering from /biodata page",
   "requirements": [
     {
-      "id": "REQ-53",
-      "summary": "Create a new public /biodata route that renders an English page heading \"Biodata\".",
+      "id": "REQ-56",
+      "summary": "Ensure the public-facing /biodata page renders only the Biodata heading and the two text sections, with no instructor portrait/avatar images in the page body, while leaving the site-wide footer portrait unchanged.",
       "acceptanceCriteria": [
-        "Navigating to /biodata renders a public page without requiring authentication.",
-        "The page displays a visible heading with the exact text \"Biodata\"."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/biodata/BiodataPage.tsx",
-          "operation": "create",
-          "description": "Create the BiodataPage component that renders a public page with a visible H1 heading text exactly \"Biodata\"."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Register and wire the new /biodata route into the TanStack Router route tree so it is publicly accessible (no RoleGate/auth requirement)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-54",
-      "summary": "Render Professional Summary and Core Competencies sections on /biodata using the provided text and bullets.",
-      "acceptanceCriteria": [
-        "The page shows a section title \"Professional Summary\" followed by the provided summary text (English).",
-        "The page shows a section title \"Core Competencies\" followed by four bullet points corresponding to: Classical Mastery, Versatile Instruction, Global Teaching, and Choreography.",
-        "No placeholder or gallery-related content appears on the /biodata page."
+        "Visiting /biodata shows the \"Biodata\" heading and the two sections (\"Professional Summary\" and \"Core Competencies\") without rendering any <img> elements or portrait/avatar images on that page.",
+        "The footer contact section (including the existing circular portrait image and its alt text) is unchanged and still appears site-wide as before.",
+        "No broken image links or empty image placeholders appear on /biodata."
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/biodata/BiodataPage.tsx",
           "operation": "modify",
-          "description": "Add two content sections: (1) \"Professional Summary\" with the provided paragraph, and (2) \"Core Competencies\" with a bulleted list of the four provided competency items; ensure no placeholder/gallery content is rendered."
-        }
-      ]
-    },
-    {
-      "id": "REQ-55",
-      "summary": "Add header (desktop + mobile) and footer navigation links to /biodata labeled \"Biodata\".",
-      "acceptanceCriteria": [
-        "The header desktop navigation includes a link labeled \"Biodata\" that navigates to /biodata.",
-        "The header mobile navigation includes a link labeled \"Biodata\" that navigates to /biodata and closes the mobile menu on click.",
-        "The footer includes a link labeled \"Biodata\" that navigates to /biodata."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/layout/AppHeader.tsx",
-          "operation": "modify",
-          "description": "Add a desktop navigation Link labeled \"Biodata\" pointing to /biodata, and add a mobile navigation Link labeled \"Biodata\" pointing to /biodata that closes the mobile menu on click (setMobileMenuOpen(false))."
-        },
-        {
-          "path": "frontend/src/components/layout/AppFooter.tsx",
-          "operation": "modify",
-          "description": "Add a footer site link labeled \"Biodata\" pointing to /biodata alongside the existing public links."
+          "description": "Remove any portrait/avatar/instructor photo rendering within the Biodata page content (ensure no <img> or image-based avatar components exist in this route’s page body) while keeping the existing heading and the two text sections unchanged."
         }
       ]
     }

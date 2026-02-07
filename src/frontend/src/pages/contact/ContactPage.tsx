@@ -6,7 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Mail, Phone, MapPin, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Mail, MapPin, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export default function ContactPage() {
   const [name, setName] = useState('');
@@ -168,19 +168,6 @@ export default function ContactPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <Phone className="h-5 w-5 text-[oklch(0.65_0.19_35)] mt-0.5" />
-                  <div>
-                    <div className="font-medium">Phone</div>
-                    <a
-                      href="tel:+918110849943"
-                      className="text-muted-foreground hover:text-[oklch(0.65_0.19_35)] transition-colors"
-                    >
-                      8110849943
-                    </a>
-                  </div>
-                </div>
-
                 <div className="flex items-start gap-3">
                   <Mail className="h-5 w-5 text-[oklch(0.65_0.19_35)] mt-0.5" />
                   <div>

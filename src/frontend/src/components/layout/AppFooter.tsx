@@ -1,4 +1,4 @@
-import { Heart, Phone, Mail } from 'lucide-react';
+import { Heart, Mail } from 'lucide-react';
 import { Link } from '@tanstack/react-router';
 
 export default function AppFooter() {
@@ -57,25 +57,14 @@ export default function AppFooter() {
                 Passionate dance instructor with years of experience in classical and contemporary styles. 
                 Dedicated to helping students discover the joy of movement and express themselves through dance.
               </p>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Phone className="h-4 w-4" />
-                  <a 
-                    href="tel:+918110849943" 
-                    className="hover:text-[oklch(0.65_0.19_35)] transition-colors"
-                  >
-                    8110849943
-                  </a>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Mail className="h-4 w-4" />
-                  <a 
-                    href="mailto:jayakumarsujatha@gmail.com" 
-                    className="hover:text-[oklch(0.65_0.19_35)] transition-colors"
-                  >
-                    jayakumarsujatha@gmail.com
-                  </a>
-                </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Mail className="h-4 w-4" />
+                <a 
+                  href="mailto:jayakumarsujatha@gmail.com" 
+                  className="hover:text-[oklch(0.65_0.19_35)] transition-colors"
+                >
+                  jayakumarsujatha@gmail.com
+                </a>
               </div>
             </div>
           </div>

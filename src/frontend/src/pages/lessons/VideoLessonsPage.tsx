@@ -7,7 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Search, Clock, Video } from 'lucide-react';
-import { DANCE_STYLES } from '../../constants/danceStyles';
+import { DANCE_STYLE_OPTIONS } from '../../constants/danceStyles';
+import StyleFilteredResultsSummary from '../../components/search/StyleFilteredResultsSummary';
 
 export default function VideoLessonsPage() {
   const navigate = useNavigate();
@@ -24,6 +25,12 @@ export default function VideoLessonsPage() {
       return matchesSearch && matchesStyle;
     });
   }, [lessons, searchQuery, styleFilter]);
+
+  const selectedStyleLabel = useMemo(() => {
+    if (styleFilter === 'all') return 'All Styles';
+    const option = DANCE_STYLE_OPTIONS.find(opt => opt.value === styleFilter);
+    return option?.label || styleFilter;
+  }, [styleFilter]);
 
   return (
     <div className="container py-12">
@@ -49,14 +56,29 @@ export default function VideoLessonsPage() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Styles</SelectItem>
-              {DANCE_STYLES.map((style) => (
-                <SelectItem key={style} value={style}>
-                  {style}
+              {DANCE_STYLE_OPTIONS.map((styleOption) => (
+                <SelectItem key={styleOption.value} value={styleOption.value}>
+                  <div className="flex flex-col items-start py-1">
+                    <span className="font-medium">{styleOption.label}</span>
+                    <span className="text-xs text-muted-foreground line-clamp-2">
+                      {styleOption.description}
+                    </span>
+                  </div>
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
+
+        {!isLoading && (
+          <StyleFilteredResultsSummary
+            selectedStyle={styleFilter}
+            selectedStyleLabel={selectedStyleLabel}
+            resultCount={filteredLessons.length}
+            itemType="lessons"
+            onClearFilter={() => setStyleFilter('all')}
+          />
+        )}
       </div>
 
       {isLoading ? (

@@ -1,58 +1,47 @@
 {
   "kind": "build_request",
-  "title": "Add instructor photo to the Biodata page",
+  "title": "Update dropdown text to show Bharatnatyam class frequency (2/week, 8/month)",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-56",
-      "text": "Create an optimized, square portrait image asset from the uploaded file IMG-20220513-WA0015.jpg and add it as a static file under frontend/public/assets/generated.",
+      "id": "REQ-1",
+      "text": "Update the dropdown option text for the Bharatnatyam style so it clearly indicates the frequency \"2 classes per week (8 per month)\" wherever dance styles are shown using the shared style options list (e.g., the class catalog style filter and the class creation form style selector).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages"
+          "msg-1"
         ],
         "quotes": [
-          "Add photo to biodata page"
+          "Bharatnatyam classes per month 2 classes per week in select classes drop down menu"
         ]
       },
       "acceptanceCriteria": [
-        "A new image file exists at frontend/public/assets/generated/biodata-portrait.dim_512x512.png.",
-        "The image is a square 512x512 portrait crop with the subject centered and minimal background distractions.",
-        "The image is visually suitable for use as a portrait (clean edges, not stretched, not pixelated)."
-      ]
-    },
-    {
-      "id": "REQ-57",
-      "text": "Update the /biodata page (frontend/src/pages/biodata/BiodataPage.tsx) to display the new portrait image near the top of the page while keeping the existing Biodata heading and the two existing sections (Professional Summary, Core Competencies) intact.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "recent-messages"
-        ],
-        "quotes": [
-          "Add photo to biodata page"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The /biodata page renders the portrait image from /assets/generated/biodata-portrait.dim_512x512.png.",
-        "The image includes English alt text (e.g., \"Instructor portrait\").",
-        "The existing headings and body text currently shown on /biodata remain present and unchanged.",
-        "The layout is responsive (image and text look good on mobile and desktop) and uses existing Tailwind styling conventions in the file."
+        "In the style dropdown used on the catalog page, the Bharatnatyam option includes the text \"2 classes per week (8 per month)\" (in the label and/or description).",
+        "In the style dropdown used in the Create New Class dialog, the Bharatnatyam option includes the text \"2 classes per week (8 per month)\" (in the label and/or description).",
+        "All user-facing text is in English and renders without layout overflow/truncation issues beyond existing line-clamp behavior."
       ]
     }
   ],
   "constraints": [
-    "Do not add any backend changes; this is a frontend-only update using a static asset.",
-    "Do not modify files under frontend/src/components/ui or any other frontend immutablePaths."
+    "Do not modify any files under frontend/src/components/ui or any other paths listed as immutable.",
+    "Keep backend architecture as a single Motoko actor; do not introduce additional backend services."
   ],
   "nonGoals": [
-    "Creating a new biodata route or changing navigation (the /biodata page already exists).",
-    "Adding an image upload feature or storing the photo in the backend."
+    "Do not implement scheduling logic that enforces 2 sessions per week or 8 sessions per month in the backend.",
+    "Do not change pricing, booking flow, or payment behavior."
   ],
   "imageRequirements": {
-    "required": [
-      "Square portrait photo crop with subject centered, reduced background distractions (biodata-portrait.dim_512x512.png)"
-    ],
+    "required": [],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

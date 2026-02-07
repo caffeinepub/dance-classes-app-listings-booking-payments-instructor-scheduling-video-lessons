@@ -1,13 +1,21 @@
 import { useState } from 'react';
 import { useGetAllVideoLessons } from '../../hooks/useQueries';
+import { useIsCallerAdmin } from '../../hooks/useCallerRole';
+import { useAddSampleVideoLessons } from '../../hooks/useAddSampleVideoLessons';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus, Video } from 'lucide-react';
+import { Plus, Video, Sparkles } from 'lucide-react';
 import LessonEditorDialog from '../../components/lessons/LessonEditorDialog';
 
 export default function ManageLessonsPage() {
   const { data: lessons = [], isLoading } = useGetAllVideoLessons();
+  const { data: isAdmin = false } = useIsCallerAdmin();
+  const { addSampleLessons, isAdding } = useAddSampleVideoLessons();
   const [showLessonDialog, setShowLessonDialog] = useState(false);
+
+  const handleAddSampleLessons = async () => {
+    await addSampleLessons();
+  };
 
   return (
     <div className="container py-12">
@@ -16,10 +24,22 @@ export default function ManageLessonsPage() {
           <h1 className="text-4xl font-bold mb-2">Manage Video Lessons</h1>
           <p className="text-muted-foreground">Create and manage your video lesson library</p>
         </div>
-        <Button onClick={() => setShowLessonDialog(true)}>
-          <Plus className="h-4 w-4 mr-2" />
-          Add Lesson
-        </Button>
+        <div className="flex gap-2">
+          {isAdmin && (
+            <Button
+              onClick={handleAddSampleLessons}
+              disabled={isAdding}
+              variant="outline"
+            >
+              <Sparkles className="h-4 w-4 mr-2" />
+              {isAdding ? 'Adding...' : 'Add Sample Lessons'}
+            </Button>
+          )}
+          <Button onClick={() => setShowLessonDialog(true)}>
+            <Plus className="h-4 w-4 mr-2" />
+            Add Lesson
+          </Button>
+        </div>
       </div>
 
       {isLoading ? (
@@ -39,10 +59,22 @@ export default function ManageLessonsPage() {
             <Video className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-xl font-semibold mb-2">No video lessons yet</h3>
             <p className="text-muted-foreground mb-6">Create your first video lesson to get started!</p>
-            <Button onClick={() => setShowLessonDialog(true)}>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Lesson
-            </Button>
+            <div className="flex gap-2 justify-center">
+              {isAdmin && (
+                <Button
+                  onClick={handleAddSampleLessons}
+                  disabled={isAdding}
+                  variant="outline"
+                >
+                  <Sparkles className="h-4 w-4 mr-2" />
+                  {isAdding ? 'Adding...' : 'Add Sample Lessons'}
+                </Button>
+              )}
+              <Button onClick={() => setShowLessonDialog(true)}>
+                <Plus className="h-4 w-4 mr-2" />
+                Add Lesson
+              </Button>
+            </div>
           </CardContent>
         </Card>
       ) : (

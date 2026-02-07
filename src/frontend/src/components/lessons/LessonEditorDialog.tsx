@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { VideoLesson } from '../../backend';
 import { toast } from 'sonner';
-import { DANCE_STYLES } from '../../constants/danceStyles';
+import { DANCE_STYLE_OPTIONS } from '../../constants/danceStyles';
 
 interface LessonEditorDialogProps {
   open: boolean;
@@ -78,9 +78,14 @@ export default function LessonEditorDialog({ open, onClose }: LessonEditorDialog
                 <SelectValue placeholder="Select style" />
               </SelectTrigger>
               <SelectContent>
-                {DANCE_STYLES.map((styleOption) => (
-                  <SelectItem key={styleOption} value={styleOption}>
-                    {styleOption}
+                {DANCE_STYLE_OPTIONS.map((styleOption) => (
+                  <SelectItem key={styleOption.value} value={styleOption.value}>
+                    <div className="flex flex-col items-start py-1">
+                      <span className="font-medium">{styleOption.label}</span>
+                      <span className="text-xs text-muted-foreground line-clamp-2">
+                        {styleOption.description}
+                      </span>
+                    </div>
                   </SelectItem>
                 ))}
               </SelectContent>

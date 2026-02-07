@@ -1,38 +1,21 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add instructor portrait asset and render it on the Biodata page",
+  "title": "Update Bharatnatyam dropdown label/description to include class frequency",
   "requirements": [
     {
-      "id": "REQ-56",
-      "summary": "Generate and add an optimized 512x512 square portrait image as a static asset for the Biodata page.",
+      "id": "REQ-1",
+      "summary": "Adjust the shared dance style options so the Bharatnatyam option includes the text \"2 classes per week (8 per month)\" anywhere style dropdowns are rendered (catalog filter and Create New Class selector).",
       "acceptanceCriteria": [
-        "A new image file exists at frontend/public/assets/generated/biodata-portrait.dim_512x512.png.",
-        "The image is a square 512x512 portrait crop with the subject centered and minimal background distractions.",
-        "The image is visually suitable for use as a portrait (clean edges, not stretched, not pixelated)."
+        "In the style dropdown used on the catalog page, the Bharatnatyam option includes the text \"2 classes per week (8 per month)\" (in the label and/or description).",
+        "In the style dropdown used in the Create New Class dialog, the Bharatnatyam option includes the text \"2 classes per week (8 per month)\" (in the label and/or description).",
+        "All user-facing text is in English and renders without layout overflow/truncation issues beyond existing line-clamp behavior."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/generated/biodata-portrait.dim_512x512.png",
-          "operation": "create",
-          "description": "Create an optimized PNG derived from IMG-20220513-WA0015.jpg as a centered, square 512x512 portrait crop with reduced background distractions, suitable for use as a top-of-page instructor portrait."
-        }
-      ]
-    },
-    {
-      "id": "REQ-57",
-      "summary": "Update the existing Biodata page to display the new portrait near the top while keeping existing content unchanged and responsive.",
-      "acceptanceCriteria": [
-        "The /biodata page renders the portrait image from /assets/generated/biodata-portrait.dim_512x512.png.",
-        "The image includes English alt text (e.g., \"Instructor portrait\").",
-        "The existing headings and body text currently shown on /biodata remain present and unchanged.",
-        "The layout is responsive (image and text look good on mobile and desktop) and uses existing Tailwind styling conventions in the file."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/biodata/BiodataPage.tsx",
+          "path": "frontend/src/constants/danceStyles.ts",
           "operation": "modify",
-          "description": "Add a responsive portrait image block near the top of the page (close to the Biodata heading) that renders the static asset at frontend/public/assets/generated/biodata-portrait.dim_512x512.png with English alt text, while keeping the existing Biodata heading plus the Professional Summary and Core Competencies sections and their text unchanged; use Tailwind classes consistent with the file’s existing styling patterns."
+          "description": "Update the Bharatnatyam entry in the shared DANCE_STYLE_OPTIONS so its label and/or description includes the exact text \"2 classes per week (8 per month)\". Keep the underlying value as \"Bharatnatyam\" to avoid breaking filtering/selection logic, and ensure the added English text works with existing line-clamp behavior without new overflow issues."
         }
       ]
     }

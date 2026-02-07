@@ -8,7 +8,8 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Search, Clock, DollarSign } from 'lucide-react';
 import { CLASS_LEVELS } from '../../constants/classLevels';
-import { DANCE_STYLES } from '../../constants/danceStyles';
+import { DANCE_STYLE_OPTIONS } from '../../constants/danceStyles';
+import StyleFilteredResultsSummary from '../../components/search/StyleFilteredResultsSummary';
 
 export default function CatalogPage() {
   const navigate = useNavigate();
@@ -27,6 +28,12 @@ export default function CatalogPage() {
       return matchesSearch && matchesStyle && matchesLevel;
     });
   }, [classes, searchQuery, styleFilter, levelFilter]);
+
+  const selectedStyleLabel = useMemo(() => {
+    if (styleFilter === 'all') return 'All Styles';
+    const option = DANCE_STYLE_OPTIONS.find(opt => opt.value === styleFilter);
+    return option?.label || styleFilter;
+  }, [styleFilter]);
 
   return (
     <div className="min-h-screen">
@@ -68,9 +75,14 @@ export default function CatalogPage() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Styles</SelectItem>
-                {DANCE_STYLES.map((style) => (
-                  <SelectItem key={style} value={style}>
-                    {style}
+                {DANCE_STYLE_OPTIONS.map((styleOption) => (
+                  <SelectItem key={styleOption.value} value={styleOption.value}>
+                    <div className="flex flex-col items-start py-1">
+                      <span className="font-medium">{styleOption.label}</span>
+                      <span className="text-xs text-muted-foreground line-clamp-2">
+                        {styleOption.description}
+                      </span>
+                    </div>
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -89,6 +101,16 @@ export default function CatalogPage() {
               </SelectContent>
             </Select>
           </div>
+
+          {!isLoading && (
+            <StyleFilteredResultsSummary
+              selectedStyle={styleFilter}
+              selectedStyleLabel={selectedStyleLabel}
+              resultCount={filteredClasses.length}
+              itemType="classes"
+              onClearFilter={() => setStyleFilter('all')}
+            />
+          )}
         </div>
 
         {isLoading ? (

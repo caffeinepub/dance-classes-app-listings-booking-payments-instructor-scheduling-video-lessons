@@ -1,35 +1,24 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-06T07:13:21.406Z",
+  "generatedAt": "2026-02-07T11:10:14.635Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 1,
+    "implemented": 1,
     "items": [
       {
-        "id": "REQ-56",
-        "summary": "Create an optimized, square portrait image asset from the uploaded file IMG-20220513-WA0015.jpg and add it as a static file under frontend/public/assets/generated.",
+        "id": "REQ-1",
+        "summary": "Update the dropdown option text for the Bharatnatyam style so it clearly indicates the frequency \"2 classes per week (8 per month)\" wherever dance styles are shown using the shared style options list (e.g., the class catalog style filter and the class creation form style selector).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/public/assets/generated/biodata-portrait.dim_512x512.png"
+          "frontend/src/constants/danceStyles.ts"
         ],
         "matchedFiles": [
-          "frontend/public/assets/generated/biodata-portrait.dim_512x512.png"
-        ]
-      },
-      {
-        "id": "REQ-57",
-        "summary": "Update the /biodata page (frontend/src/pages/biodata/BiodataPage.tsx) to display the new portrait image near the top of the page while keeping the existing Biodata heading and the two existing sections (Professional Summary, Core Competencies) intact.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/biodata/BiodataPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/biodata/BiodataPage.tsx"
+          "frontend/src/constants/danceStyles.ts"
         ]
       }
     ]
@@ -39,8 +28,7 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/biodata-portrait.dim_512x512.png",
-    "frontend/src/pages/biodata/BiodataPage.tsx",
+    "frontend/src/constants/danceStyles.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

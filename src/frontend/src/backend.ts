@@ -113,6 +113,10 @@ export interface DanceClass {
     style: string;
     price: bigint;
 }
+export interface StyleSessionCount {
+    count: bigint;
+    style: string;
+}
 export type SessionId = bigint;
 export interface http_header {
     value: string;
@@ -142,6 +146,7 @@ export interface Session {
     duration: bigint;
     instructor: string;
     classId: ClassId;
+    style: string;
     onlineLink: string;
     capacity: bigint;
     location: string;
@@ -152,6 +157,11 @@ export interface ShoppingItem {
     quantity: bigint;
     priceInCents: bigint;
     productDescription: string;
+}
+export interface ContactInquiryInput {
+    name: string;
+    email: string;
+    message: string;
 }
 export interface TransformationInput {
     context: Uint8Array;
@@ -205,6 +215,7 @@ export interface backendInterface {
     createCheckoutSession(items: Array<ShoppingItem>, successUrl: string, cancelUrl: string): Promise<string>;
     createDanceClass(newClass: DanceClass): Promise<void>;
     createSession(newSession: Session): Promise<void>;
+    ensureMinimumMonthlySessions(styles: Array<string>): Promise<Array<StyleSessionCount>>;
     getAllContactInquiries(): Promise<Array<ContactInquiry>>;
     getAllDanceClasses(): Promise<Array<DanceClass>>;
     getAllUsers(): Promise<Array<[Principal, UserProfile]>>;
@@ -212,6 +223,7 @@ export interface backendInterface {
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
     getDanceClass(classId: ClassId): Promise<DanceClass | null>;
+    getGlobalSessionSchedule(): Promise<Array<Session>>;
     getSession(sessionId: SessionId): Promise<Session | null>;
     getSessionsForClass(classId: ClassId): Promise<Array<Session>>;
     getStripeSessionStatus(sessionId: string): Promise<StripeSessionStatus>;
@@ -221,7 +233,7 @@ export interface backendInterface {
     isStripeConfigured(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     setStripeConfiguration(config: StripeConfiguration): Promise<void>;
-    submitContactInquiry(inquiry: ContactInquiry): Promise<void>;
+    submitContactInquiry(inquiryInput: ContactInquiryInput): Promise<void>;
     transform(input: TransformationInput): Promise<TransformationOutput>;
     uploadVideoLesson(newLesson: VideoLesson): Promise<void>;
 }
@@ -309,6 +321,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.createSession(arg0);
+            return result;
+        }
+    }
+    async ensureMinimumMonthlySessions(arg0: Array<string>): Promise<Array<StyleSessionCount>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.ensureMinimumMonthlySessions(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.ensureMinimumMonthlySessions(arg0);
             return result;
         }
     }
@@ -408,6 +434,20 @@ export class Backend implements backendInterface {
         } else {
             const result = await this.actor.getDanceClass(arg0);
             return from_candid_opt_n10(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getGlobalSessionSchedule(): Promise<Array<Session>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getGlobalSessionSchedule();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getGlobalSessionSchedule();
+            return result;
         }
     }
     async getSession(arg0: SessionId): Promise<Session | null> {
@@ -536,7 +576,7 @@ export class Backend implements backendInterface {
             return result;
         }
     }
-    async submitContactInquiry(arg0: ContactInquiry): Promise<void> {
+    async submitContactInquiry(arg0: ContactInquiryInput): Promise<void> {
         if (this.processError) {
             try {
                 const result = await this.actor.submitContactInquiry(arg0);

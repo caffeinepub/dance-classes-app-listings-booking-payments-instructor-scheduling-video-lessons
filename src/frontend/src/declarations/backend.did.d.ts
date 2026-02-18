@@ -27,6 +27,11 @@ export interface ContactInquiry {
   'message' : string,
   'timestamp' : Time,
 }
+export interface ContactInquiryInput {
+  'name' : string,
+  'email' : string,
+  'message' : string,
+}
 export interface DanceClass {
   'id' : ClassId,
   'title' : string,
@@ -43,6 +48,7 @@ export interface Session {
   'duration' : bigint,
   'instructor' : string,
   'classId' : ClassId,
+  'style' : string,
   'onlineLink' : string,
   'capacity' : bigint,
   'location' : string,
@@ -63,6 +69,7 @@ export type StripeSessionStatus = {
     'completed' : { 'userPrincipal' : [] | [string], 'response' : string }
   } |
   { 'failed' : { 'error' : string } };
+export interface StyleSessionCount { 'count' : bigint, 'style' : string }
 export type Time = bigint;
 export interface TransformationInput {
   'context' : Uint8Array,
@@ -106,6 +113,10 @@ export interface _SERVICE {
   >,
   'createDanceClass' : ActorMethod<[DanceClass], undefined>,
   'createSession' : ActorMethod<[Session], undefined>,
+  'ensureMinimumMonthlySessions' : ActorMethod<
+    [Array<string>],
+    Array<StyleSessionCount>
+  >,
   'getAllContactInquiries' : ActorMethod<[], Array<ContactInquiry>>,
   'getAllDanceClasses' : ActorMethod<[], Array<DanceClass>>,
   'getAllUsers' : ActorMethod<[], Array<[Principal, UserProfile]>>,
@@ -113,6 +124,7 @@ export interface _SERVICE {
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getDanceClass' : ActorMethod<[ClassId], [] | [DanceClass]>,
+  'getGlobalSessionSchedule' : ActorMethod<[], Array<Session>>,
   'getSession' : ActorMethod<[SessionId], [] | [Session]>,
   'getSessionsForClass' : ActorMethod<[ClassId], Array<Session>>,
   'getStripeSessionStatus' : ActorMethod<[string], StripeSessionStatus>,
@@ -122,7 +134,7 @@ export interface _SERVICE {
   'isStripeConfigured' : ActorMethod<[], boolean>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'setStripeConfiguration' : ActorMethod<[StripeConfiguration], undefined>,
-  'submitContactInquiry' : ActorMethod<[ContactInquiry], undefined>,
+  'submitContactInquiry' : ActorMethod<[ContactInquiryInput], undefined>,
   'transform' : ActorMethod<[TransformationInput], TransformationOutput>,
   'uploadVideoLesson' : ActorMethod<[VideoLesson], undefined>,
 }

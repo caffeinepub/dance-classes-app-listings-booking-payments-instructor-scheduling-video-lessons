@@ -1,11 +1,15 @@
 # Specification
 
 ## Summary
-**Goal:** Make the Bharatnatyam dance style option clearly communicate the class frequency in all shared style dropdowns.
+**Goal:** Build a laser cutting artworks showcase website highlighting creativity, precision, and offerings for gifting, home décor, and industrial applications, targeted at the Pune market.
 
 **Planned changes:**
-- Update the shared dance style options list so the Bharatnatyam option text includes: "2 classes per week (8 per month)".
-- Ensure the updated Bharatnatyam text appears anywhere the shared style options list is used (including the class catalog style filter and the Create New Class style selector).
-- Verify the updated label/description renders in English without new truncation/overflow beyond existing line-clamp behavior.
+- Create homepage with hero section showcasing laser cutting artworks
+- Build product gallery organized into three categories: customized gifts, elegant decorative pieces, and industrial components
+- Add About section highlighting innovative ideas, advanced laser technology, originality, durability, and flawless finishing
+- Implement contact form for inquiries about custom orders and quotes
+- Create services overview section for gifting, home décor, and industrial applications
+- Design modern visual theme with warm, sophisticated colors conveying craftsmanship and precision
+- Display generated product showcase images from frontend/public/assets/generated directory
 
-**User-visible outcome:** When selecting or filtering by dance style, users will see Bharatnatyam displayed with "2 classes per week (8 per month)" in the relevant dropdowns.
+**User-visible outcome:** Visitors can explore a professional showcase website featuring laser cutting artworks across three categories, learn about the company's innovative approach and technology, view the product gallery, and submit inquiries through a contact form.

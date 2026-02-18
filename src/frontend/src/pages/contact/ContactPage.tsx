@@ -6,7 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Mail, MapPin, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Mail, MapPin, Phone, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export default function ContactPage() {
   const [name, setName] = useState('');
@@ -43,7 +43,7 @@ export default function ContactPage() {
         name: name.trim(),
         email: email.trim(),
         message: message.trim(),
-        timestamp: BigInt(Date.now() * 1000000), // Convert to nanoseconds
+        timestamp: BigInt(Date.now() * 1000000),
       });
 
       // Clear form and show success
@@ -65,9 +65,9 @@ export default function ContactPage() {
     <div className="container py-12">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Get in Touch</h1>
+          <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have questions about our classes or want to learn more? We'd love to hear from you.
+            Have a project in mind? Get in touch with us for a consultation and quote.
           </p>
         </div>
 
@@ -141,7 +141,7 @@ export default function ContactPage() {
                     id="message"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Tell us what you'd like to know..."
+                    placeholder="Tell us about your project..."
                     rows={6}
                     required
                   />
@@ -169,24 +169,37 @@ export default function ContactPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <Mail className="h-5 w-5 text-[oklch(0.65_0.19_35)] mt-0.5" />
+                  <Mail className="h-5 w-5 text-primary mt-0.5" />
                   <div>
                     <div className="font-medium">Email</div>
                     <a
-                      href="mailto:jayakumarsujatha@gmail.com"
-                      className="text-muted-foreground hover:text-[oklch(0.65_0.19_35)] transition-colors break-all"
+                      href="mailto:info@laserart.studio"
+                      className="text-muted-foreground hover:text-primary transition-colors break-all"
                     >
-                      jayakumarsujatha@gmail.com
+                      info@laserart.studio
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <MapPin className="h-5 w-5 text-[oklch(0.65_0.19_35)] mt-0.5" />
+                  <Phone className="h-5 w-5 text-primary mt-0.5" />
+                  <div>
+                    <div className="font-medium">Phone</div>
+                    <a
+                      href="tel:+919876543210"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      +91 98765 43210
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <MapPin className="h-5 w-5 text-primary mt-0.5" />
                   <div>
                     <div className="font-medium">Location</div>
                     <div className="text-muted-foreground">
-                      Available for online and in-person classes
+                      Pune, Maharashtra, India
                     </div>
                   </div>
                 </div>
@@ -195,23 +208,31 @@ export default function ContactPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>About Our Instructor</CardTitle>
+                <CardTitle>Business Hours</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="flex flex-col items-center text-center gap-4">
-                  <img
-                    src="/assets/generated/sujatha-portrait-v2.dim_512x512.png"
-                    alt="Sujatha Jagan"
-                    className="w-32 h-32 rounded-full object-cover border-2 border-[oklch(0.65_0.19_35)]"
-                  />
-                  <div>
-                    <div className="font-semibold text-lg">Sujatha Jagan</div>
-                    <p className="text-sm text-muted-foreground mt-2">
-                      Passionate dance instructor with years of experience in classical and contemporary styles.
-                      Dedicated to helping students discover the joy of movement.
-                    </p>
-                  </div>
+              <CardContent className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Monday - Friday</span>
+                  <span className="font-medium">9:00 AM - 6:00 PM</span>
                 </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Saturday</span>
+                  <span className="font-medium">10:00 AM - 4:00 PM</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Sunday</span>
+                  <span className="font-medium">Closed</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-primary text-primary-foreground">
+              <CardContent className="p-6">
+                <h3 className="font-bold text-lg mb-2">Get a Free Quote</h3>
+                <p className="text-sm opacity-90">
+                  Share your project details with us and receive a customized quote within 24 hours. 
+                  No obligation, just expert advice and transparent pricing.
+                </p>
               </CardContent>
             </Card>
           </div>

@@ -1,15 +1,15 @@
 import Map "mo:core/Map";
-import Principal "mo:core/Principal";
 import Runtime "mo:core/Runtime";
 import Time "mo:core/Time";
-import Text "mo:core/Text";
 import Order "mo:core/Order";
 import Array "mo:core/Array";
-import Iter "mo:core/Iter";
+import Int "mo:core/Int";
 import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
 import Stripe "stripe/stripe";
 import OutCall "http-outcalls/outcall";
+import Nat "mo:core/Nat";
+import Iter "mo:core/Iter";
 
 actor {
   let accessControlState = AccessControl.initState();
@@ -52,6 +52,7 @@ actor {
     capacity : Nat;
     location : Text;
     onlineLink : Text;
+    style : Text; // Added style field
   };
 
   public type Booking = {
@@ -76,6 +77,12 @@ actor {
     email : Text;
     message : Text;
     timestamp : Time.Time;
+  };
+
+  public type ContactInquiryInput = {
+    name : Text;
+    email : Text;
+    message : Text;
   };
 
   // State
@@ -147,8 +154,13 @@ actor {
     let sessionId = nextSessionId;
     nextSessionId += 1;
 
-    let sessionWithId = { newSession with id = sessionId };
-    sessions.add(sessionId, sessionWithId);
+    switch (danceClasses.get(newSession.classId)) {
+      case (null) { Runtime.trap("Dance class not found for session") };
+      case (?danceClass) {
+        let sessionWithId = { newSession with id = sessionId; style = danceClass.style };
+        sessions.add(sessionId, sessionWithId);
+      };
+    };
   };
 
   public query func getSessionsForClass(classId : ClassId) : async [Session] {
@@ -265,7 +277,15 @@ actor {
   };
 
   // Contact Inquiry Management
-  public shared ({ caller }) func submitContactInquiry(inquiry : ContactInquiry) : async () {
+  public shared ({ caller }) func submitContactInquiry(inquiryInput : ContactInquiryInput) : async () {
+    // Public access - anyone including guests can submit contact inquiries
+    // Timestamp is set by the backend to prevent manipulation
+    let inquiry : ContactInquiry = {
+      name = inquiryInput.name;
+      email = inquiryInput.email;
+      message = inquiryInput.message;
+      timestamp = Time.now();
+    };
     contactInquiries.add(inquiry.timestamp, inquiry);
   };
 
@@ -274,5 +294,90 @@ actor {
       Runtime.trap("Unauthorized: Only admins can view contact inquiries");
     };
     contactInquiries.values().toArray();
+  };
+
+  // Global Session Schedule
+  func compareSessionsByStartTime(a : Session, b : Session) : Order.Order {
+    Int.compare(a.startTime, b.startTime);
+  };
+
+  public query func getGlobalSessionSchedule() : async [Session] {
+    // Public access - anyone (including guests) can fetch the global schedule
+    sessions.values().toArray().sort(compareSessionsByStartTime);
+  };
+
+  type StyleSessionCount = {
+    style : Text;
+    count : Nat;
+  };
+
+  public shared ({ caller }) func ensureMinimumMonthlySessions(styles : [Text]) : async [StyleSessionCount] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can invoke this operation");
+    };
+
+    let now = Time.now();
+    let monthInNanos = 30 * 24 * 60 * 60 * 1_000_000_000; // 30 days
+
+    let styleStats = Array.tabulate(
+      styles.size(),
+      func(i) {
+        let style = styles[i];
+        let upcomingCount = sessions.values().toArray().foldLeft(
+          0,
+          func(acc, session) {
+            if (
+              session.style == style and session.startTime >= now and session.startTime <= (now + monthInNanos)
+            ) {
+              acc + 1;
+            } else {
+              acc;
+            };
+          },
+        );
+
+        var createdCount = 0;
+
+        if (upcomingCount < 8) {
+          let availableClasses = danceClasses.values().toArray().filter(func(dc) { dc.style == style });
+          let numToSchedule = 8 - upcomingCount;
+
+          switch (availableClasses.values().next()) {
+            case (?selectedClass) {
+              let randomSeed = (now / (1_000_000_000)) % 30; // 30-day offset
+              var sessionOffset = 0;
+              while (createdCount < numToSchedule) {
+                let sessionId = nextSessionId;
+                nextSessionId += 1;
+
+                // Distribute sessions across the month
+                let dayOffset = (randomSeed + createdCount) % 30;
+
+                let newSession : Session = {
+                  id = sessionId;
+                  classId = selectedClass.id;
+                  instructor = selectedClass.instructor;
+                  startTime = now + (dayOffset * 24 * 60 * 60 * 1_000_000_000);
+                  duration = selectedClass.duration;
+                  capacity = 10;
+                  location = "Default Location";
+                  onlineLink = "";
+                  style = style;
+                };
+
+                sessions.add(sessionId, newSession);
+                createdCount += 1;
+                sessionOffset += 1;
+              };
+            };
+            case (null) {};
+          };
+        };
+
+        { style; count = createdCount };
+      },
+    );
+
+    styleStats;
   };
 };

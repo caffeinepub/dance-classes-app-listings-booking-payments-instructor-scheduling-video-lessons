@@ -1,47 +1,156 @@
 {
   "kind": "build_request",
-  "title": "Update dropdown text to show Bharatnatyam class frequency (2/week, 8/month)",
+  "title": "Build laser cutting artworks showcase website",
+  "projectName": "Laser Art Studio",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Update the dropdown option text for the Bharatnatyam style so it clearly indicates the frequency \"2 classes per week (8 per month)\" wherever dance styles are shown using the shared style options list (e.g., the class catalog style filter and the class creation form style selector).",
+      "text": "Create a homepage with hero section showcasing laser cutting artworks, highlighting creativity, precision, and unique solutions for gifting, home décor, and industrial applications",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-7"
         ],
         "quotes": [
-          "Bharatnatyam classes per month 2 classes per week in select classes drop down menu"
+          "specialize in laser cutting artworks that blend creativity with precision, offering unique solutions for gifting, home décor, and industrial applications"
         ]
       },
       "acceptanceCriteria": [
-        "In the style dropdown used on the catalog page, the Bharatnatyam option includes the text \"2 classes per week (8 per month)\" (in the label and/or description).",
-        "In the style dropdown used in the Create New Class dialog, the Bharatnatyam option includes the text \"2 classes per week (8 per month)\" (in the label and/or description).",
-        "All user-facing text is in English and renders without layout overflow/truncation issues beyond existing line-clamp behavior."
+        "Hero section displays compelling visual of laser cutting artworks",
+        "Clear messaging about specialization in gifts, home décor, and industrial applications",
+        "Call-to-action buttons for exploring products or contacting business"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Build a product gallery showcasing three main categories: customized gifts, elegant decorative pieces, and accurate industrial components",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-7"
+        ],
+        "quotes": [
+          "From customized gifts and elegant decorative pieces to accurate industrial components"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Gallery organized into three distinct categories",
+        "Each category displays representative product examples",
+        "Products show high-quality images with descriptions",
+        "Navigation between categories is intuitive"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Create an About section highlighting innovative ideas, advanced laser technology, focus on originality, durability, and flawless finishing, with emphasis on serving the Pune market",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-7"
+        ],
+        "quotes": [
+          "Our designs are thoughtfully crafted using innovative ideas and advanced laser technology",
+          "we bring new and contemporary designs to the Pune market",
+          "With a strong focus on originality, durability, and flawless finishing"
+        ]
+      },
+      "acceptanceCriteria": [
+        "About section describes innovative design approach and laser technology",
+        "Highlights key values: originality, durability, flawless finishing",
+        "Mentions Pune market presence",
+        "Professional presentation of company philosophy"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement a contact form for inquiries about custom orders, quotes, and general questions",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-7"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Contact form accepts name, email, phone, and message",
+        "Form validates required fields",
+        "Backend stores inquiry submissions",
+        "Success confirmation shown after submission"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Create services overview section detailing offerings for gifting solutions, home décor products, and industrial applications",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-7"
+        ],
+        "quotes": [
+          "offering unique solutions for gifting, home décor, and industrial applications"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Three service categories clearly defined",
+        "Each category includes description and benefits",
+        "Visual representation for each service area",
+        "Links or navigation to relevant product examples"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Design a creative, modern visual theme with warm, sophisticated colors that convey craftsmanship and precision, using clean typography and spacious layouts that highlight the artistry of laser-cut products",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-7"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Color palette reflects craftsmanship and modern design",
+        "Typography is clean and professional",
+        "Layout emphasizes product imagery and detail",
+        "Consistent visual style across all pages",
+        "Design conveys precision and quality"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Render generated product showcase images as static assets in frontend/public/assets/generated directory",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-7"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated images loaded from frontend/public/assets/generated",
+        "Images display correctly in gallery and showcase sections",
+        "Proper image optimization and loading"
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under frontend/src/components/ui or any other paths listed as immutable.",
-    "Keep backend architecture as a single Motoko actor; do not introduce additional backend services."
+    "Use single-actor Motoko architecture for backend",
+    "Do not modify immutable frontend paths: hooks/useInternetIdentity, hooks/useActor, main.tsx, components/ui",
+    "Follow React + TypeScript + Tailwind + React Query stack"
   ],
   "nonGoals": [
-    "Do not implement scheduling logic that enforces 2 sessions per week or 8 sessions per month in the backend.",
-    "Do not change pricing, booking flow, or payment behavior."
+    "E-commerce shopping cart or checkout system",
+    "User authentication or account management",
+    "Real-time order tracking",
+    "Integration with external CRM systems",
+    "Multi-language support"
   ],
   "imageRequirements": {
-    "required": [],
+    "required": [
+      "Hero banner showing intricate laser-cut artwork with dramatic lighting and detailed patterns (hero-banner.dim_1920x800.png)",
+      "Customized gift examples including personalized wooden plaques and decorative frames (gift-showcase.dim_800x600.png)",
+      "Elegant home décor pieces featuring geometric wall art and ornamental designs (decor-showcase.dim_800x600.png)",
+      "Industrial precision components showing mechanical parts and technical applications (industrial-showcase.dim_800x600.png)",
+      "Laser cutting process visualization showing technology and precision at work (laser-process.dim_1200x800.png)",
+      "Company workshop setting with laser cutting equipment (workshop-photo.dim_1200x800.png)"
+    ],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

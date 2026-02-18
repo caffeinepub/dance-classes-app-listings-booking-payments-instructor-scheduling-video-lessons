@@ -54,9 +54,14 @@ export const Session = IDL.Record({
   'duration' : IDL.Nat,
   'instructor' : IDL.Text,
   'classId' : ClassId,
+  'style' : IDL.Text,
   'onlineLink' : IDL.Text,
   'capacity' : IDL.Nat,
   'location' : IDL.Text,
+});
+export const StyleSessionCount = IDL.Record({
+  'count' : IDL.Nat,
+  'style' : IDL.Text,
 });
 export const ContactInquiry = IDL.Record({
   'name' : IDL.Text,
@@ -89,6 +94,11 @@ export const StripeConfiguration = IDL.Record({
   'allowedCountries' : IDL.Vec(IDL.Text),
   'secretKey' : IDL.Text,
 });
+export const ContactInquiryInput = IDL.Record({
+  'name' : IDL.Text,
+  'email' : IDL.Text,
+  'message' : IDL.Text,
+});
 export const http_header = IDL.Record({
   'value' : IDL.Text,
   'name' : IDL.Text,
@@ -119,6 +129,11 @@ export const idlService = IDL.Service({
     ),
   'createDanceClass' : IDL.Func([DanceClass], [], []),
   'createSession' : IDL.Func([Session], [], []),
+  'ensureMinimumMonthlySessions' : IDL.Func(
+      [IDL.Vec(IDL.Text)],
+      [IDL.Vec(StyleSessionCount)],
+      [],
+    ),
   'getAllContactInquiries' : IDL.Func([], [IDL.Vec(ContactInquiry)], ['query']),
   'getAllDanceClasses' : IDL.Func([], [IDL.Vec(DanceClass)], ['query']),
   'getAllUsers' : IDL.Func(
@@ -130,6 +145,7 @@ export const idlService = IDL.Service({
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getDanceClass' : IDL.Func([ClassId], [IDL.Opt(DanceClass)], ['query']),
+  'getGlobalSessionSchedule' : IDL.Func([], [IDL.Vec(Session)], ['query']),
   'getSession' : IDL.Func([SessionId], [IDL.Opt(Session)], ['query']),
   'getSessionsForClass' : IDL.Func([ClassId], [IDL.Vec(Session)], ['query']),
   'getStripeSessionStatus' : IDL.Func([IDL.Text], [StripeSessionStatus], []),
@@ -143,7 +159,7 @@ export const idlService = IDL.Service({
   'isStripeConfigured' : IDL.Func([], [IDL.Bool], ['query']),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'setStripeConfiguration' : IDL.Func([StripeConfiguration], [], []),
-  'submitContactInquiry' : IDL.Func([ContactInquiry], [], []),
+  'submitContactInquiry' : IDL.Func([ContactInquiryInput], [], []),
   'transform' : IDL.Func(
       [TransformationInput],
       [TransformationOutput],
@@ -201,9 +217,14 @@ export const idlFactory = ({ IDL }) => {
     'duration' : IDL.Nat,
     'instructor' : IDL.Text,
     'classId' : ClassId,
+    'style' : IDL.Text,
     'onlineLink' : IDL.Text,
     'capacity' : IDL.Nat,
     'location' : IDL.Text,
+  });
+  const StyleSessionCount = IDL.Record({
+    'count' : IDL.Nat,
+    'style' : IDL.Text,
   });
   const ContactInquiry = IDL.Record({
     'name' : IDL.Text,
@@ -236,6 +257,11 @@ export const idlFactory = ({ IDL }) => {
     'allowedCountries' : IDL.Vec(IDL.Text),
     'secretKey' : IDL.Text,
   });
+  const ContactInquiryInput = IDL.Record({
+    'name' : IDL.Text,
+    'email' : IDL.Text,
+    'message' : IDL.Text,
+  });
   const http_header = IDL.Record({ 'value' : IDL.Text, 'name' : IDL.Text });
   const http_request_result = IDL.Record({
     'status' : IDL.Nat,
@@ -263,6 +289,11 @@ export const idlFactory = ({ IDL }) => {
       ),
     'createDanceClass' : IDL.Func([DanceClass], [], []),
     'createSession' : IDL.Func([Session], [], []),
+    'ensureMinimumMonthlySessions' : IDL.Func(
+        [IDL.Vec(IDL.Text)],
+        [IDL.Vec(StyleSessionCount)],
+        [],
+      ),
     'getAllContactInquiries' : IDL.Func(
         [],
         [IDL.Vec(ContactInquiry)],
@@ -278,6 +309,7 @@ export const idlFactory = ({ IDL }) => {
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getDanceClass' : IDL.Func([ClassId], [IDL.Opt(DanceClass)], ['query']),
+    'getGlobalSessionSchedule' : IDL.Func([], [IDL.Vec(Session)], ['query']),
     'getSession' : IDL.Func([SessionId], [IDL.Opt(Session)], ['query']),
     'getSessionsForClass' : IDL.Func([ClassId], [IDL.Vec(Session)], ['query']),
     'getStripeSessionStatus' : IDL.Func([IDL.Text], [StripeSessionStatus], []),
@@ -291,7 +323,7 @@ export const idlFactory = ({ IDL }) => {
     'isStripeConfigured' : IDL.Func([], [IDL.Bool], ['query']),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'setStripeConfiguration' : IDL.Func([StripeConfiguration], [], []),
-    'submitContactInquiry' : IDL.Func([ContactInquiry], [], []),
+    'submitContactInquiry' : IDL.Func([ContactInquiryInput], [], []),
     'transform' : IDL.Func(
         [TransformationInput],
         [TransformationOutput],

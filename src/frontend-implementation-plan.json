@@ -1,21 +1,178 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Update Bharatnatyam dropdown label/description to include class frequency",
+  "title": "Laser Art Studio Showcase Website",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Adjust the shared dance style options so the Bharatnatyam option includes the text \"2 classes per week (8 per month)\" anywhere style dropdowns are rendered (catalog filter and Create New Class selector).",
+      "summary": "Create homepage hero section showcasing laser cutting artworks with clear messaging about specialization and call-to-action",
       "acceptanceCriteria": [
-        "In the style dropdown used on the catalog page, the Bharatnatyam option includes the text \"2 classes per week (8 per month)\" (in the label and/or description).",
-        "In the style dropdown used in the Create New Class dialog, the Bharatnatyam option includes the text \"2 classes per week (8 per month)\" (in the label and/or description).",
-        "All user-facing text is in English and renders without layout overflow/truncation issues beyond existing line-clamp behavior."
+        "Hero section displays compelling visual of laser cutting artworks",
+        "Clear messaging about specialization in gifts, home décor, and industrial applications",
+        "Call-to-action buttons for exploring products or contacting business"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/constants/danceStyles.ts",
+          "path": "frontend/src/pages/home/HomePage.tsx",
+          "operation": "create",
+          "description": "Create homepage with hero section using the generated image frontend/public/assets/generated/hero-banner.dim_1920x800.png. Include headline emphasizing creativity and precision in laser cutting, subheading highlighting gifting, home décor, and industrial solutions, and CTA buttons linking to product gallery and contact form. Use warm, sophisticated color palette and clean typography."
+        },
+        {
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Update the Bharatnatyam entry in the shared DANCE_STYLE_OPTIONS so its label and/or description includes the exact text \"2 classes per week (8 per month)\". Keep the underlying value as \"Bharatnatyam\" to avoid breaking filtering/selection logic, and ensure the added English text works with existing line-clamp behavior without new overflow issues."
+          "description": "Add route for HomePage at path '/' to make it the landing page. Register the route in the router configuration and ensure it's accessible without authentication."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Build product gallery showcasing three main categories: customized gifts, elegant decorative pieces, and accurate industrial components",
+      "acceptanceCriteria": [
+        "Gallery organized into three distinct categories",
+        "Each category displays representative product examples",
+        "Products show high-quality images with descriptions",
+        "Navigation between categories is intuitive"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/gallery/GalleryPage.tsx",
+          "operation": "modify",
+          "description": "Implement product gallery with three category tabs: Customized Gifts, Decorative Pieces, and Industrial Components. For Customized Gifts, display frontend/public/assets/generated/gift-showcase.dim_800x600.png with descriptions of personalized wooden plaques and decorative frames. For Decorative Pieces, display frontend/public/assets/generated/decor-showcase.dim_800x600.png featuring geometric wall art and ornamental designs. For Industrial Components, display frontend/public/assets/generated/industrial-showcase.dim_800x600.png showing mechanical parts and technical applications. Use grid layout with smooth category switching."
+        },
+        {
+          "path": "frontend/src/components/gallery/ProductCard.tsx",
+          "operation": "create",
+          "description": "Create reusable product card component that displays product image, title, description, and category badge. Include hover effects and responsive design following the warm, sophisticated color palette."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for GalleryPage at path '/gallery'. Add navigation link in AppHeader to the gallery page."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Create About section highlighting innovative ideas, advanced laser technology, focus on originality, durability, and flawless finishing, with emphasis on serving the Pune market",
+      "acceptanceCriteria": [
+        "About section describes innovative design approach and laser technology",
+        "Highlights key values: originality, durability, flawless finishing",
+        "Mentions Pune market presence",
+        "Professional presentation of company philosophy"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/about/AboutPage.tsx",
+          "operation": "create",
+          "description": "Create About page featuring company story and philosophy. Include section on innovative ideas and advanced laser technology using frontend/public/assets/generated/laser-process.dim_1200x800.png to visualize the cutting process. Add section highlighting key values: originality, durability, and flawless finishing. Include company mission statement emphasizing service to the Pune market with contemporary designs. Display frontend/public/assets/generated/workshop-photo.dim_1200x800.png showing the laser cutting equipment and workspace. Use professional layout with clear section divisions."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for AboutPage at path '/about'. Add navigation link in AppHeader to the about page."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Implement contact form for inquiries about custom orders, quotes, and general questions",
+      "acceptanceCriteria": [
+        "Contact form accepts name, email, phone, and message",
+        "Form validates required fields",
+        "Backend stores inquiry submissions",
+        "Success confirmation shown after submission"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/contact/ContactPage.tsx",
+          "operation": "modify",
+          "description": "Update existing contact form to include phone number field alongside name, email, and message. Ensure form validation for all required fields. Add submission handler using existing useSubmitContactInquiry hook from useQueries.ts. Display success message after submission and clear form. Style consistently with warm color palette and clean typography."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Verify ContactPage route at '/contact' exists and add navigation link in AppHeader if not already present."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Create services overview section detailing offerings for gifting solutions, home décor products, and industrial applications",
+      "acceptanceCriteria": [
+        "Three service categories clearly defined",
+        "Each category includes description and benefits",
+        "Visual representation for each service area",
+        "Links or navigation to relevant product examples"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/services/ServicesPage.tsx",
+          "operation": "create",
+          "description": "Create Services page with three main service sections. Gifting Solutions section describes personalized gifts, custom designs, and special occasions, linking to relevant gallery category. Home Décor section highlights wall art, decorative pieces, and interior design applications, linking to décor gallery. Industrial Applications section details precision components, technical parts, and commercial solutions, linking to industrial gallery. Use card-based layout with icons or representative images for each category. Include benefits and use cases for each service area."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for ServicesPage at path '/services'. Add navigation link in AppHeader to the services page."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Design creative, modern visual theme with warm, sophisticated colors conveying craftsmanship and precision using clean typography and spacious layouts",
+      "acceptanceCriteria": [
+        "Color palette reflects craftsmanship and modern design",
+        "Typography is clean and professional",
+        "Layout emphasizes product imagery and detail",
+        "Consistent visual style across all pages",
+        "Design conveys precision and quality"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Update global CSS with warm, sophisticated color palette using earthy tones, copper, bronze, and wood-inspired colors. Define custom CSS variables for primary (warm amber/copper), secondary (deep brown), accent (bronze/gold), and neutral colors. Set up typography scale using clean, modern sans-serif fonts. Add base styles for consistent spacing, smooth transitions, and elevated shadows that emphasize craftsmanship."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme with custom color palette matching the warm, sophisticated design: primary colors in amber/copper range, secondary in brown tones, accent in bronze/gold. Configure custom font families for headings and body text. Add custom spacing scale for spacious layouts. Define shadow utilities that convey depth and quality."
+        },
+        {
+          "path": "frontend/src/components/layout/AppHeader.tsx",
+          "operation": "modify",
+          "description": "Update header styling to match warm, sophisticated theme. Apply custom colors, clean typography, and ensure navigation is clear and accessible. Add subtle hover effects and maintain consistent branding across viewport sizes."
+        },
+        {
+          "path": "frontend/src/components/layout/AppFooter.tsx",
+          "operation": "modify",
+          "description": "Update footer styling to match the warm color palette and clean typography. Ensure footer complements the overall design language and provides clear contact information and social links."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Render generated product showcase images as static assets",
+      "acceptanceCriteria": [
+        "Generated images loaded from frontend/public/assets/generated",
+        "Images display correctly in gallery and showcase sections",
+        "Proper image optimization and loading"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/home/HomePage.tsx",
+          "operation": "modify",
+          "description": "Ensure hero section references frontend/public/assets/generated/hero-banner.dim_1920x800.png with proper loading attributes and responsive sizing. Verify image path is correct and add alt text describing laser cutting artwork."
+        },
+        {
+          "path": "frontend/src/pages/gallery/GalleryPage.tsx",
+          "operation": "modify",
+          "description": "Verify all generated showcase images are properly referenced: frontend/public/assets/generated/gift-showcase.dim_800x600.png for gifts category, frontend/public/assets/generated/decor-showcase.dim_800x600.png for decorative pieces, and frontend/public/assets/generated/industrial-showcase.dim_800x600.png for industrial components. Add loading='lazy' for performance and descriptive alt text for each image."
+        },
+        {
+          "path": "frontend/src/pages/about/AboutPage.tsx",
+          "operation": "modify",
+          "description": "Ensure frontend/public/assets/generated/laser-process.dim_1200x800.png and frontend/public/assets/generated/workshop-photo.dim_1200x800.png are properly referenced with correct paths, lazy loading, and descriptive alt text. Apply consistent image styling with the warm color theme."
         }
       ]
     }

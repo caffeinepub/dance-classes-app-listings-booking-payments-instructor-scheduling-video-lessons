@@ -2,10 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-dropdown-option-text-for-the-bharatnatyam-style-so-it-clearly-indicates-the-frequency-2-classes-per-week-8-per-month-wherever-dance-styles-are-shown-using-the-shared-style-options-list-e-g-the-class-catalog-style-filter-and-the-class-creation-form-style-selector",
-      "featureTitle": "Update the dropdown option text for the Bharatnatyam style so it clearly indicates the frequency \"2 classes per week (8 per month)\" wherever dance styles are shown using the shared style options list (e.g., the class catalog style filter and the class creation form style selector).",
+      "featureId": "feature-create-a-homepage-with-hero-section-showcasing-laser-cutting-artworks-highlighting-creativity-precision-and-unique-solutions-for-gifting-home-d-cor-and-industrial-applications",
+      "featureTitle": "Create a homepage with hero section showcasing laser cutting artworks, highlighting creativity, precision, and unique solutions for gifting, home décor, and industrial applications",
       "files": [
-        "frontend/src/constants/danceStyles.ts"
+        "frontend/src/App.tsx",
+        "frontend/src/pages/home/HomePage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -19,6 +20,141 @@
       ],
       "testIds": [
         "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-product-gallery-showcasing-three-main-categories-customized-gifts-elegant-decorative-pieces-and-accurate-industrial-components",
+      "featureTitle": "Build a product gallery showcasing three main categories: customized gifts, elegant decorative pieces, and accurate industrial components",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/gallery/GalleryPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-an-about-section-highlighting-innovative-ideas-advanced-laser-technology-focus-on-originality-durability-and-flawless-finishing-with-emphasis-on-serving-the-pune-market",
+      "featureTitle": "Create an About section highlighting innovative ideas, advanced laser technology, focus on originality, durability, and flawless finishing, with emphasis on serving the Pune market",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/about/AboutPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-contact-form-for-inquiries-about-custom-orders-quotes-and-general-questions",
+      "featureTitle": "Implement a contact form for inquiries about custom orders, quotes, and general questions",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/contact/ContactPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-services-overview-section-detailing-offerings-for-gifting-solutions-home-d-cor-products-and-industrial-applications",
+      "featureTitle": "Create services overview section detailing offerings for gifting solutions, home décor products, and industrial applications",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/services/ServicesPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-design-a-creative-modern-visual-theme-with-warm-sophisticated-colors-that-convey-craftsmanship-and-precision-using-clean-typography-and-spacious-layouts-that-highlight-the-artistry-of-laser-cut-products",
+      "featureTitle": "Design a creative, modern visual theme with warm, sophisticated colors that convey craftsmanship and precision, using clean typography and spacious layouts that highlight the artistry of laser-cut products",
+      "files": [
+        "frontend/src/components/layout/AppFooter.tsx",
+        "frontend/src/components/layout/AppHeader.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-render-generated-product-showcase-images-as-static-assets-in-frontend-public-assets-generated-directory",
+      "featureTitle": "Render generated product showcase images as static assets in frontend/public/assets/generated directory",
+      "files": [
+        "frontend/src/pages/about/AboutPage.tsx",
+        "frontend/src/pages/gallery/GalleryPage.tsx",
+        "frontend/src/pages/home/HomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "http-outcalls@3.0.0",
+        "stripe@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
       ],
       "confidence": "high"
     }

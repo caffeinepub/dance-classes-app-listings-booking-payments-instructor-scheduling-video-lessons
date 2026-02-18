@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
-import type { DanceClass, Session, Booking, VideoLesson, ClassId, SessionId, VideoId, ShoppingItem, StripeConfiguration, UserRole, UserProfile, ContactInquiry } from '../backend';
+import type { DanceClass, Session, Booking, VideoLesson, ClassId, SessionId, VideoId, ShoppingItem, StripeConfiguration, UserRole, UserProfile, ContactInquiry, StyleSessionCount } from '../backend';
 import { Principal } from '@dfinity/principal';
 
 // Dance Classes
@@ -84,6 +84,36 @@ export function useCreateSession() {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['sessions', variables.classId.toString()] });
       queryClient.invalidateQueries({ queryKey: ['sessions'] });
+      queryClient.invalidateQueries({ queryKey: ['globalSchedule'] });
+    },
+  });
+}
+
+export function useGetGlobalSessionSchedule() {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<Session[]>({
+    queryKey: ['globalSchedule'],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.getGlobalSessionSchedule();
+    },
+    enabled: !!actor && !isFetching,
+  });
+}
+
+export function useEnsureMinimumMonthlySessions() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (styles: string[]) => {
+      if (!actor) throw new Error('Actor not available');
+      return actor.ensureMinimumMonthlySessions(styles);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['globalSchedule'] });
+      queryClient.invalidateQueries({ queryKey: ['sessions'] });
     },
   });
 }
@@ -114,6 +144,7 @@ export function useBookSession() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['userBookings'] });
       queryClient.invalidateQueries({ queryKey: ['sessions'] });
+      queryClient.invalidateQueries({ queryKey: ['globalSchedule'] });
     },
   });
 }
